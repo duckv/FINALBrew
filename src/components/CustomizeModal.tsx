@@ -33,18 +33,58 @@ const CustomizeModal = ({
   basePrice,
   onAddToCart,
 }: CustomizeModalProps) => {
-  const [customizations, setCustomizations] = useState<Customization[]>([
-    { id: "test-1", name: "Test +$1.00", price: 1.0, selected: false },
-    { id: "test-2", name: "Test +$1.00", price: 1.0, selected: false },
-    { id: "test-3", name: "Test +$1.00", price: 1.0, selected: false },
-    { id: "test-4", name: "Test +$1.00", price: 1.0, selected: false },
-    { id: "test-5", name: "Test +$1.00", price: 1.0, selected: false },
-    { id: "test-6", name: "Test +$1.00", price: 1.0, selected: false },
-    { id: "test-7", name: "Test +$1.00", price: 1.0, selected: false },
-    { id: "test-8", name: "Test +$1.00", price: 1.0, selected: false },
-    { id: "test-9", name: "Test +$1.00", price: 1.0, selected: false },
-    { id: "test-10", name: "Test +$1.00", price: 1.0, selected: false },
-  ]);
+  // Generate customizations based on item name
+  const getCustomizationsForItem = (itemName: string): Customization[] => {
+    const itemLower = itemName.toLowerCase();
+
+    if (itemLower.includes("classic cheese pizza")) {
+      return [
+        { id: "pepperoni", name: "Add Pepperoni", price: 1.5, selected: false },
+      ];
+    }
+
+    if (itemLower.includes("avocado toast")) {
+      return [{ id: "bacon", name: "Add Bacon", price: 2.0, selected: false }];
+    }
+
+    // Default customizations for other items
+    return [
+      { id: "extra-shot", name: "Extra Shot", price: 0.75, selected: false },
+      { id: "decaf", name: "Make it Decaf", price: 0.0, selected: false },
+      { id: "extra-hot", name: "Extra Hot", price: 0.0, selected: false },
+      { id: "extra-foam", name: "Extra Foam", price: 0.0, selected: false },
+      { id: "oat-milk", name: "Oat Milk", price: 0.65, selected: false },
+      { id: "almond-milk", name: "Almond Milk", price: 0.65, selected: false },
+      { id: "soy-milk", name: "Soy Milk", price: 0.65, selected: false },
+      {
+        id: "coconut-milk",
+        name: "Coconut Milk",
+        price: 0.65,
+        selected: false,
+      },
+      {
+        id: "vanilla-syrup",
+        name: "Vanilla Syrup",
+        price: 0.5,
+        selected: false,
+      },
+      {
+        id: "caramel-syrup",
+        name: "Caramel Syrup",
+        price: 0.5,
+        selected: false,
+      },
+    ];
+  };
+
+  const [customizations, setCustomizations] = useState<Customization[]>(
+    getCustomizationsForItem(itemName),
+  );
+
+  // Update customizations when item changes
+  useState(() => {
+    setCustomizations(getCustomizationsForItem(itemName));
+  });
 
   const toggleCustomization = (id: string) => {
     setCustomizations((prev) =>
