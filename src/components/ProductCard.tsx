@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Minus, Plus, Info } from "lucide-react";
+import { useCart } from "@/contexts/CartContext";
 
 interface ProductCardProps {
   title: string;
@@ -22,9 +23,26 @@ const ProductCard = ({
   category,
 }: ProductCardProps) => {
   const [quantity, setQuantity] = useState(1);
+  const { addItem } = useCart();
 
   const incrementQuantity = () => setQuantity((prev) => prev + 1);
   const decrementQuantity = () => setQuantity((prev) => Math.max(1, prev - 1));
+
+  const handleAddToCart = () => {
+    // Parse price string to number (remove $ and convert)
+    const numericPrice = parseFloat(price.replace("$", ""));
+
+    addItem({
+      name: title,
+      price: numericPrice,
+      quantity: quantity,
+      image: image || getPlaceholderImage(),
+      category: category,
+    });
+
+    // Reset quantity to 1 after adding to cart
+    setQuantity(1);
+  };
 
   // Generate a placeholder image based on category
   const getPlaceholderImage = () => {
@@ -76,46 +94,50 @@ const ProductCard = ({
           </div>
         )}
 
-        {/* Quantity and Actions */}
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={decrementQuantity}
-              className="h-8 w-8 p-0"
-            >
-              <Minus className="h-4 w-4" />
-            </Button>
-            <span className="font-medium text-lg w-8 text-center">
-              {quantity}
-            </span>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={incrementQuantity}
-              className="h-8 w-8 p-0"
-            >
-              <Plus className="h-4 w-4" />
-            </Button>
-          </div>
+        {/* Quantity Controls */}
+        <div className="flex items-center justify-center space-x-3 mb-4">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={decrementQuantity}
+            className="h-8 w-8 p-0"
+          >
+            <Minus className="h-4 w-4" />
+          </Button>
+          <span className="font-medium text-lg w-8 text-center">
+            {quantity}
+          </span>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={incrementQuantity}
+            className="h-8 w-8 p-0"
+          >
+            <Plus className="h-4 w-4" />
+          </Button>
+        </div>
 
-          <div className="flex items-center space-x-2">
-            <Button
-              variant="outline"
-              size="sm"
-              className="text-brand-brown border-brand-brown hover:bg-brand-brown hover:text-white"
-            >
-              <Info className="h-4 w-4 mr-1" />
-              Allergens
-            </Button>
-            <Button
-              size="sm"
-              className="bg-brand-brown hover:bg-brand-brown-dark text-white"
-            >
-              Add to Cart
-            </Button>
-          </div>
+        {/* Add to Cart Button */}
+        <div className="mb-4">
+          <Button
+            onClick={handleAddToCart}
+            className="w-full bg-brand-brown hover:bg-brand-brown-dark text-white"
+            size="sm"
+          >
+            Add to Cart
+          </Button>
+        </div>
+
+        {/* Allergens Button */}
+        <div className="flex justify-center">
+          <Button
+            variant="outline"
+            size="sm"
+            className="text-brand-brown border-brand-brown hover:bg-brand-brown hover:text-white"
+          >
+            <Info className="h-4 w-4 mr-1" />
+            Allergens
+          </Button>
         </div>
       </div>
     </div>
