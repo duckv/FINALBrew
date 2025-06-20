@@ -738,7 +738,7 @@ const Menu = {
     filterContainer.innerHTML = APP_STATE.filters.categories
       .map(
         (category) => `
-      <button 
+      <button
         class="filter-btn ${category === APP_STATE.ui.activeCategory ? "active" : ""}"
         onclick="Menu.filterByCategory('${category}')"
       >
@@ -848,11 +848,11 @@ const Menu = {
             <h3 class="product-title">${item.title}</h3>
             <span class="product-price">${item.price}</span>
           </div>
-          
+
           ${item.description ? `<p class="product-description">${item.description}</p>` : ""}
-          
+
           ${this.renderProductOptions(item)}
-          
+
           <div class="quantity-controls">
             <button class="quantity-btn" onclick="Menu.updateProductQuantity('${itemId}', ${currentQuantity - 1})">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -867,12 +867,12 @@ const Menu = {
               </svg>
             </button>
           </div>
-          
+
           <div class="product-actions">
             <button class="add-to-cart-btn" onclick="Menu.addToCart('${itemId}')">
               Add to Cart
             </button>
-            
+
             <div class="product-secondary-actions">
               <button class="secondary-btn" onclick="Menu.showCustomizeModal('${itemId}')">
                 Customize
@@ -1105,14 +1105,11 @@ const Menu = {
           { name: "Extra Hot", price: 0, description: "Serve extra hot" },
         );
       } else if (item.hasToastOptions) {
-        customizations.push(
-          { name: "Toasted", price: 0, description: "Lightly toasted" },
-          {
-            name: "Well Toasted",
-            price: 0,
-            description: "Golden brown and crispy",
-          },
-        );
+        customizations.push({
+          name: "Toasted",
+          price: 0,
+          description: "Lightly toasted",
+        });
       } else if (item.hasSliceOptions) {
         customizations.push(
           {
@@ -1184,7 +1181,7 @@ const Menu = {
     const body = document.getElementById("allergenBody");
 
     if (title) {
-      title.textContent = `Allergen Information - ${item.title}`;
+      title.textContent = item.title;
     }
 
     if (body) {
@@ -1208,7 +1205,7 @@ const Menu = {
               ${item.allergens
                 .map(
                   (allergen) => `
-                <span class="allergen-badge">${allergen}</span>
+                <span class="allergen-badge">${allergen.charAt(0).toUpperCase() + allergen.slice(1)}</span>
               `,
                 )
                 .join("")}
@@ -1227,10 +1224,7 @@ const Menu = {
             <p class="no-allergens">No common allergens detected in this item.</p>
           `
           }
-          
-          <div style="margin-top: 1.5rem; padding: 1rem; background: #fef3c7; border-radius: 0.5rem; border: 1px solid #f59e0b;">
-            <p><strong>Important:</strong> This information is provided as a guide only. Please inform our staff of any allergies or dietary restrictions before ordering. We cannot guarantee that our products are free from allergens due to shared preparation areas.</p>
-          </div>
+
         </div>
       `;
     }
@@ -1429,9 +1423,12 @@ function showToast(message, type = "info") {
   const toastContainer = document.getElementById("toastContainer");
   if (!toastContainer) return;
 
+  // Remove existing toasts first
+  toastContainer.innerHTML = "";
+
   const toastId = generateId();
   const toast = document.createElement("div");
-  toast.className = `toast ${type}`;
+  toast.className = `toast ${type} toast-center`;
   toast.id = toastId;
 
   const iconSvg = {
@@ -1450,21 +1447,15 @@ function showToast(message, type = "info") {
         ${iconSvg[type]}
       </svg>
       <div class="toast-message">${message}</div>
-      <button class="toast-close" onclick="removeToast('${toastId}')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="18" y1="6" x2="6" y2="18"></line>
-          <line x1="6" y1="6" x2="18" y2="18"></line>
-        </svg>
-      </button>
     </div>
   `;
 
   toastContainer.appendChild(toast);
 
-  // Auto-remove after duration
+  // Auto-remove after 2.5 seconds
   setTimeout(() => {
     removeToast(toastId);
-  }, CONFIG.TOAST_DURATION);
+  }, 2500);
 }
 
 /**
