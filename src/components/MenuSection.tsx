@@ -284,6 +284,67 @@ const MenuSection = () => {
       hasSliceOptions: true,
     },
 
+    // Pizza
+    {
+      title: "Margherita Pizza",
+      price: "$16.50",
+      description:
+        "Fresh mozzarella, tomato sauce, and basil on our house-made dough",
+      category: "Pizza",
+    },
+    {
+      title: "Classic Cheese Pizza",
+      price: "$15.00",
+      description: "Traditional cheese pizza with option to add pepperoni",
+      category: "Pizza",
+      hasCustomizations: true,
+    },
+    {
+      title: "Spicy Brooklyn Pizza",
+      price: "$18.75",
+      description: "Pepperoni, jalapeños, and spicy sauce on thin crust",
+      category: "Pizza",
+    },
+    {
+      title: "Flatbread Pizza",
+      price: "$14.50",
+      description: "Artisan flatbread with seasonal toppings",
+      category: "Pizza",
+    },
+
+    // Breakfast
+    {
+      title: "Bacon Egg & Cheese",
+      price: "$8.50",
+      description:
+        "Crispy bacon, scrambled eggs, and melted cheese on a fresh roll",
+      category: "Breakfast",
+    },
+    {
+      title: "Avocado Toast",
+      price: "$9.75",
+      description:
+        "Smashed avocado on multigrain bread with sea salt and lemon",
+      category: "Breakfast",
+      hasCustomizations: true,
+    },
+
+    // Lunch
+    {
+      title: "Turkey & Swiss",
+      price: "$12.50",
+      description:
+        "Sliced turkey breast with Swiss cheese, lettuce, and tomato",
+      category: "Lunch",
+    },
+    {
+      title: "Caprese Sandwich",
+      price: "$11.75",
+      description:
+        "Fresh mozzarella, tomatoes, basil, and balsamic on ciabatta",
+      category: "Lunch",
+    },
+
     // Sweets
     {
       title: "Chocolate Éclair",
