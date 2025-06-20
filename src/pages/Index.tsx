@@ -141,6 +141,23 @@ const Index = () => {
       {/* Photo Gallery of Bakery and Products */}
       <GallerySection />
 
+      {/* Google Reviews Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="container max-w-7xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="font-heading text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              What Our Customers Say
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Real reviews from our Google listing, updated automatically
+            </p>
+          </div>
+          <div className="max-w-4xl mx-auto">
+            <GoogleReviews />
+          </div>
+        </div>
+      </section>
+
       {/* Contact Information and Hours */}
       <ContactSection />
 
