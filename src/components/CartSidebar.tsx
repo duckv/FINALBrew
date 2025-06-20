@@ -105,11 +105,7 @@ const CartSidebar = ({ isOpen, onClose, onCheckout }: CartSidebarProps) => {
                           variant="outline"
                           size="sm"
                           onClick={() => {
-                            try {
-                              updateQuantity(item.id, item.quantity + 1);
-                            } catch (error) {
-                              // Error is handled by context, no need to show here
-                            }
+                            updateQuantity(item.id, item.quantity + 1);
                           }}
                           className="h-8 w-8 p-0"
                           disabled={item.quantity >= 25}
