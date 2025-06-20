@@ -82,9 +82,9 @@ const CustomizeModal = ({
   );
 
   // Update customizations when item changes
-  useState(() => {
+  useEffect(() => {
     setCustomizations(getCustomizationsForItem(itemName));
-  });
+  }, [itemName]);
 
   const toggleCustomization = (id: string) => {
     setCustomizations((prev) =>
