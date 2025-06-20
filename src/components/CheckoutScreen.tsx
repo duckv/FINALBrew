@@ -1,0 +1,318 @@
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { ArrowLeft, CreditCard, MapPin, User, Phone, Mail } from "lucide-react";
+import { useCart } from "@/contexts/CartContext";
+import { toast } from "sonner";
+
+interface CheckoutScreenProps {
+  onBack: () => void;
+}
+
+const CheckoutScreen = ({ onBack }: CheckoutScreenProps) => {
+  const { items, getTotalPrice, clearCart } = useCart();
+  const [loading, setLoading] = useState(false);
+  const [orderType, setOrderType] = useState<"pickup" | "delivery">("pickup");
+
+  const subtotal = getTotalPrice();
+  const tax = subtotal * 0.0875; // NJ sales tax
+  const deliveryFee = orderType === "delivery" ? 3.99 : 0;
+  const total = subtotal + tax + deliveryFee;
+
+  const handleSubmitOrder = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
+    // Simulate order processing
+    setTimeout(() => {
+      toast.success(
+        "Order placed successfully! You'll receive a confirmation email shortly.",
+      );
+      clearCart();
+      setLoading(false);
+      onBack();
+    }, 2000);
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50 py-8">
+      <div className="container max-w-4xl mx-auto px-6">
+        {/* Header */}
+        <div className="flex items-center mb-8">
+          <Button variant="ghost" onClick={onBack} className="mr-4 p-2">
+            <ArrowLeft className="h-5 w-5" />
+          </Button>
+          <h1 className="font-heading text-3xl font-bold text-gray-900">
+            Checkout
+          </h1>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Order Form */}
+          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+            <h2 className="font-heading text-xl font-bold text-gray-900 mb-6">
+              Order Details
+            </h2>
+
+            <form onSubmit={handleSubmitOrder} className="space-y-6">
+              {/* Order Type */}
+              <div>
+                <Label className="text-sm font-medium">Order Type</Label>
+                <Select
+                  value={orderType}
+                  onValueChange={(value: "pickup" | "delivery") =>
+                    setOrderType(value)
+                  }
+                >
+                  <SelectTrigger className="mt-1">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="pickup">Pickup</SelectItem>
+                    <SelectItem value="delivery">Delivery ($3.99)</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Customer Information */}
+              <div className="space-y-4">
+                <h3 className="font-semibold text-gray-900 flex items-center">
+                  <User className="h-4 w-4 mr-2" />
+                  Customer Information
+                </h3>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="firstName">First Name</Label>
+                    <Input
+                      id="firstName"
+                      placeholder="John"
+                      required
+                      className="mt-1"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="lastName">Last Name</Label>
+                    <Input
+                      id="lastName"
+                      placeholder="Doe"
+                      required
+                      className="mt-1"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <Label htmlFor="email">Email</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="john@example.com"
+                    required
+                    className="mt-1"
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="phone">Phone Number</Label>
+                  <Input
+                    id="phone"
+                    type="tel"
+                    placeholder="(908) 555-0123"
+                    required
+                    className="mt-1"
+                  />
+                </div>
+              </div>
+
+              {/* Delivery Address (if delivery selected) */}
+              {orderType === "delivery" && (
+                <div className="space-y-4">
+                  <h3 className="font-semibold text-gray-900 flex items-center">
+                    <MapPin className="h-4 w-4 mr-2" />
+                    Delivery Address
+                  </h3>
+
+                  <div>
+                    <Label htmlFor="address">Street Address</Label>
+                    <Input
+                      id="address"
+                      placeholder="123 Main Street"
+                      required
+                      className="mt-1"
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="city">City</Label>
+                      <Input
+                        id="city"
+                        placeholder="Berkeley Heights"
+                        required
+                        className="mt-1"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="zipCode">ZIP Code</Label>
+                      <Input
+                        id="zipCode"
+                        placeholder="07922"
+                        required
+                        className="mt-1"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <Label htmlFor="deliveryInstructions">
+                      Delivery Instructions (Optional)
+                    </Label>
+                    <Textarea
+                      id="deliveryInstructions"
+                      placeholder="Apartment number, gate code, etc."
+                      className="mt-1"
+                    />
+                  </div>
+                </div>
+              )}
+
+              {/* Pickup Time / Delivery Time */}
+              <div>
+                <Label htmlFor="requestedTime">
+                  Requested {orderType === "pickup" ? "Pickup" : "Delivery"}{" "}
+                  Time
+                </Label>
+                <Input
+                  id="requestedTime"
+                  type="datetime-local"
+                  required
+                  className="mt-1"
+                  min={new Date(Date.now() + 3600000)
+                    .toISOString()
+                    .slice(0, 16)} // 1 hour from now
+                />
+              </div>
+
+              {/* Special Instructions */}
+              <div>
+                <Label htmlFor="specialInstructions">
+                  Special Instructions (Optional)
+                </Label>
+                <Textarea
+                  id="specialInstructions"
+                  placeholder="Allergies, special requests, etc."
+                  className="mt-1"
+                />
+              </div>
+
+              {/* Payment Method */}
+              <div className="space-y-4">
+                <h3 className="font-semibold text-gray-900 flex items-center">
+                  <CreditCard className="h-4 w-4 mr-2" />
+                  Payment Method
+                </h3>
+
+                <div className="p-4 border border-gray-200 rounded-lg bg-gray-50">
+                  <p className="text-sm text-gray-600 mb-2">Payment Options:</p>
+                  <ul className="text-sm text-gray-700 space-y-1">
+                    <li>• Pay in store during pickup</li>
+                    <li>• Cash on delivery</li>
+                    <li>• Card payment available at location</li>
+                  </ul>
+                </div>
+              </div>
+
+              {/* Submit Button */}
+              <Button
+                type="submit"
+                disabled={loading}
+                className="w-full bg-brand-pink hover:bg-pink-600 text-white py-3 text-lg"
+              >
+                {loading
+                  ? "Processing..."
+                  : `Place Order - $${total.toFixed(2)}`}
+              </Button>
+            </form>
+          </div>
+
+          {/* Order Summary */}
+          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 h-fit">
+            <h2 className="font-heading text-xl font-bold text-gray-900 mb-6">
+              Order Summary
+            </h2>
+
+            {/* Order Items */}
+            <div className="space-y-4 mb-6">
+              {items.map((item) => (
+                <div
+                  key={item.id}
+                  className="flex justify-between items-center"
+                >
+                  <div>
+                    <p className="font-medium text-gray-900">{item.name}</p>
+                    <p className="text-sm text-gray-600">
+                      ${item.price.toFixed(2)} × {item.quantity}
+                    </p>
+                  </div>
+                  <p className="font-medium">
+                    ${(item.price * item.quantity).toFixed(2)}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            {/* Order Totals */}
+            <div className="border-t border-gray-200 pt-4 space-y-2">
+              <div className="flex justify-between">
+                <p className="text-gray-600">Subtotal</p>
+                <p className="font-medium">${subtotal.toFixed(2)}</p>
+              </div>
+
+              {orderType === "delivery" && (
+                <div className="flex justify-between">
+                  <p className="text-gray-600">Delivery Fee</p>
+                  <p className="font-medium">${deliveryFee.toFixed(2)}</p>
+                </div>
+              )}
+
+              <div className="flex justify-between">
+                <p className="text-gray-600">Tax (8.75%)</p>
+                <p className="font-medium">${tax.toFixed(2)}</p>
+              </div>
+
+              <div className="flex justify-between text-lg font-bold border-t border-gray-200 pt-2">
+                <p>Total</p>
+                <p>${total.toFixed(2)}</p>
+              </div>
+            </div>
+
+            {/* Store Info */}
+            <div className="mt-6 pt-6 border-t border-gray-200">
+              <h3 className="font-semibold text-gray-900 mb-3">
+                Store Information
+              </h3>
+              <div className="text-sm text-gray-600 space-y-1">
+                <p>512 Springfield Ave</p>
+                <p>Berkeley Heights, NJ 07922</p>
+                <p>(908) 933-0123</p>
+                <p>breadnbrew512@gmail.com</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default CheckoutScreen;
