@@ -34,7 +34,7 @@ Copy your image files to the appropriate subdirectory:
 **Product Photos by Category:**
 
 - **Coffee products** → `src/assets/images/products/coffee/`
-- **Tea products** �� `src/assets/images/products/tea/`
+- **Tea products** → `src/assets/images/products/tea/`
 - **Pastries** → `src/assets/images/products/pastries/`
 - **Pizza items** → `src/assets/images/products/pizza/`
 - **Bread products** → `src/assets/images/products/breads/`
@@ -187,14 +187,14 @@ const GalleryImage = ({ imageName }: { imageName: string }) => {
 ### Available Helper Functions
 
 ```tsx
-// Get image path by category and filename
-getImagePath(category: "products" | "gallery" | "logos" | "backgrounds", filename: string): string
+// Get image path by category and filename (with optional subcategory)
+getImagePath(category: "products" | "gallery" | "logos" | "backgrounds", filename: string, subcategory?: string): string
 
-// Load image dynamically
-loadImage(category: string, filename: string): Promise<string>
+// Load image dynamically (with optional subcategory)
+loadImage(category: string, filename: string, subcategory?: string): Promise<string>
 
 // Preload images for better performance
-preloadImages(images: Array<{category: string, filename: string}>): Promise<void>
+preloadImages(images: Array<{category: string, filename: string, subcategory?: string}>): Promise<void>
 
 // Generate responsive image srcSet
 generateSrcSet(category: string, filename: string, sizes: number[]): string
@@ -205,16 +205,37 @@ generateSrcSet(category: string, filename: string, sizes: number[]): string
 ```tsx
 import { getImagePath, preloadImages } from "@/utils/imageHelpers";
 
-// Basic usage
-const imageSrc = getImagePath("products", "chocolate-croissant.jpg");
+// Basic usage with subcategory
+const imageSrc = getImagePath(
+  "products",
+  "chocolate-croissant.jpg",
+  "pastries",
+);
 
-// Preload critical images
+// Basic usage without subcategory (legacy support)
+const logoSrc = getImagePath("logos", "main-logo.svg");
+
+// Preload critical images with subcategories
 useEffect(() => {
   preloadImages([
-    { category: "backgrounds", filename: "hero-image.jpg" },
-    { category: "products", filename: "featured-bread.jpg" },
+    {
+      category: "backgrounds",
+      filename: "hero-image.jpg",
+      subcategory: "general",
+    },
+    {
+      category: "products",
+      filename: "featured-bread.jpg",
+      subcategory: "breads",
+    },
+    { category: "products", filename: "latte-art.jpg", subcategory: "coffee" },
   ]);
 }, []);
+
+// Category-specific examples
+const coffeeImage = getImagePath("products", "cappuccino.jpg", "coffee");
+const pizzaImage = getImagePath("products", "margherita.jpg", "pizza");
+const pastryImage = getImagePath("products", "croissant.jpg", "pastries");
 ```
 
 ## 🎨 Design Guidelines
