@@ -39,7 +39,20 @@ fusion-starter/
    - Logos/icons → `src/assets/images/logos/`
    - Backgrounds → `src/assets/images/backgrounds/`
 
-2. **Import in your component**:
+2. **Use the ImageUploader component (Recommended)**:
+
+   ```tsx
+   import ImageUploader from "@/components/ImageUploader";
+
+   <ImageUploader
+     category="products"
+     filename="chocolate-croissant.jpg"
+     alt="Freshly baked chocolate croissant"
+     configType="product"
+   />;
+   ```
+
+3. **Or import directly**:
 
    ```tsx
    import productImage from "@/assets/images/products/your-image.jpg";
@@ -48,7 +61,7 @@ fusion-starter/
    <img src={productImage} alt="Description" />;
    ```
 
-3. **Or use the Image Helper utility**:
+4. **Or use the Image Helper utility**:
 
    ```tsx
    import { getImagePath } from "@/utils/imageHelpers";
