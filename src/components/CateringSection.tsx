@@ -164,17 +164,42 @@ const CateringSection = () => {
                 Submit Request
               </Button>
 
-              <p className="text-xs text-gray-500 text-center">
-                We'll get back to you within 24 hours with a detailed quote.
-                <br />
-                Or email us directly at{" "}
-                <a
-                  href="mailto:breadnbrew512@gmail.com"
-                  className="text-brand-pink hover:underline"
-                >
-                  breadnbrew512@gmail.com
-                </a>
-              </p>
+              <div className="text-center pt-4 border-t border-gray-200">
+                <p className="text-sm text-gray-600 mb-3">
+                  We'll get back to you within 24 hours with a detailed quote.
+                </p>
+                <div className="space-y-2">
+                  <div className="flex items-center justify-center gap-2 text-sm">
+                    <Phone className="h-4 w-4 text-brand-brown" />
+                    <a
+                      href="tel:908-933-0123"
+                      className="text-brand-pink hover:text-pink-700 font-semibold"
+                    >
+                      (908) 933-0123
+                    </a>
+                  </div>
+                  <div className="flex items-center justify-center gap-2 text-sm">
+                    <Mail className="h-4 w-4 text-brand-brown" />
+                    <a
+                      href="mailto:breadnbrew512@gmail.com"
+                      className="text-brand-pink hover:text-pink-700 font-semibold"
+                    >
+                      breadnbrew512@gmail.com
+                    </a>
+                  </div>
+                  <div className="flex items-center justify-center gap-2 text-sm">
+                    <MapPin className="h-4 w-4 text-brand-brown" />
+                    <a
+                      href="https://maps.google.com/?q=512+Springfield+Ave,+Berkeley+Heights,+NJ+07922"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-brand-pink hover:text-pink-700 font-semibold"
+                    >
+                      512 Springfield Ave, Berkeley Heights, NJ 07922
+                    </a>
+                  </div>
+                </div>
+              </div>
             </form>
           </div>
         </div>
