@@ -5,7 +5,7 @@
  * It sets up all the necessary providers and routing for the application.
  */
 
-import * as React from "react";
+import React from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
