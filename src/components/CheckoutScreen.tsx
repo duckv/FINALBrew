@@ -21,6 +21,7 @@ import {
   Smartphone,
   Car,
   Truck,
+  AlertTriangle,
 } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
 import { toast } from "sonner";
