@@ -50,23 +50,52 @@ export function getImagePath(
  *
  * @param category - The image category
  * @param filename - The image filename with extension
+ * @param subcategory - Optional subcategory (e.g., "coffee", "pastries")
  * @returns Promise that resolves to the image URL
  *
  * @example
  * ```tsx
  * const imageUrl = await loadImage("gallery", "bakery-interior.jpg");
  * setImageSrc(imageUrl);
+ *
+ * const imageUrl = await loadImage("products", "latte-art.jpg", "coffee");
+ * setImageSrc(imageUrl);
  * ```
  */
 export async function loadImage(
   category: ImageCategory,
   filename: string,
+  subcategory?: string,
 ): Promise<string> {
   try {
+    let imagePath: string;
+    if (subcategory) {
+      imagePath = `@/assets/images/${category}/${subcategory}/${filename}`;
+    } else {
+      imagePath = `@/assets/images/${category}/${filename}`;
+    }
+
     // Dynamic import for the image
-    const imageModule = await import(`@/assets/images/${category}/${filename}`);
+    const imageModule = await import(imagePath);
     return imageModule.default;
   } catch (error) {
+    // Try fallback without subcategory if subcategory failed
+    if (subcategory) {
+      try {
+        const fallbackPath = `@/assets/images/${category}/${filename}`;
+        const imageModule = await import(fallbackPath);
+        return imageModule.default;
+      } catch (fallbackError) {
+        console.error(
+          `Failed to load image with fallback: ${category}/${filename}`,
+          fallbackError,
+        );
+        throw new Error(
+          `Image not found: ${category}/${subcategory}/${filename}`,
+        );
+      }
+    }
+
     console.error(`Failed to load image: ${category}/${filename}`, error);
     throw new Error(`Image not found: ${category}/${filename}`);
   }
