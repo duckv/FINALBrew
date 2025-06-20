@@ -104,15 +104,14 @@ const AllergenModal = ({
               <h4 className="font-medium text-red-900 mb-2">
                 Detected Allergens:
               </h4>
-              <div className="flex flex-wrap gap-1">
+              <div className="flex flex-wrap gap-2">
                 {allergens.map((allergen) => (
-                  <Badge
+                  <div
                     key={allergen}
-                    variant="destructive"
-                    className="text-xs"
+                    className="px-3 py-1 bg-red-500 text-white text-xs font-medium rounded border border-red-600"
                   >
                     {allergen.charAt(0).toUpperCase() + allergen.slice(1)}
-                  </Badge>
+                  </div>
                 ))}
               </div>
             </div>
