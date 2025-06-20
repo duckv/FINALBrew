@@ -11,11 +11,11 @@ const MenuSection = () => {
 
   const categories = [
     "All",
+    "Pastries",
     "Coffee",
     "Sweets",
     "Tea",
     "Iced/Frozen",
-    "Pastries",
     "Breads",
     "Pizza",
     "Breakfast",
