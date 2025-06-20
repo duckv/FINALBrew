@@ -104,10 +104,15 @@ const CartSidebar = ({ isOpen, onClose, onCheckout }: CartSidebarProps) => {
                         <Button
                           variant="outline"
                           size="sm"
-                          onClick={() =>
-                            updateQuantity(item.id, item.quantity + 1)
-                          }
+                          onClick={() => {
+                            try {
+                              updateQuantity(item.id, item.quantity + 1);
+                            } catch (error) {
+                              // Error is handled by context, no need to show here
+                            }
+                          }}
                           className="h-8 w-8 p-0"
+                          disabled={item.quantity >= 25}
                         >
                           <Plus className="h-3 w-3" />
                         </Button>
