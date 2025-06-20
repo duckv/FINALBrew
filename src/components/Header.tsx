@@ -49,23 +49,57 @@ const Header = () => {
     { name: "Contact", href: "#contact" },
   ];
 
+  // ========== Event Handlers ==========
+
+  /**
+   * Toggle mobile menu visibility
+   */
+  const toggleMobileMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  /**
+   * Close mobile menu (used when nav item is clicked)
+   */
+  const closeMobileMenu = () => {
+    setIsMenuOpen(false);
+  };
+
+  /**
+   * Open cart sidebar
+   */
+  const openCart = () => {
+    setIsCartOpen(true);
+  };
+
+  /**
+   * Close cart sidebar
+   */
+  const closeCart = () => {
+    setIsCartOpen(false);
+  };
+
+  // ========== Render ==========
+
   return (
     <header className="sticky top-0 z-50 w-full bg-white shadow-sm">
       <div className="container max-w-7xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          {/* Logo */}
+          {/* ========== Brand Logo and Tagline ========== */}
           <div className="flex items-center">
             <div>
+              {/* Main brand name with coffee emoji */}
               <h1 className="font-heading text-2xl font-bold text-brand-pink">
                 Bread N' Br☕︎w
               </h1>
+              {/* Brand tagline */}
               <p className="text-sm text-gray-600 italic">
                 Artisan Breads, Perfect Brews, & Fine Patisseries
               </p>
             </div>
           </div>
 
-          {/* Desktop Navigation */}
+          {/* ========== Desktop Navigation Menu ========== */}
           <nav className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
               <a
@@ -78,15 +112,18 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* Action Buttons */}
+          {/* ========== Action Buttons ========== */}
           <div className="flex items-center space-x-4">
+            {/* Shopping Cart Button with Item Count Badge */}
             <Button
               variant="ghost"
               size="sm"
               className="relative p-2 text-gray-700 hover:text-brand-brown"
-              onClick={() => setIsCartOpen(true)}
+              onClick={openCart}
+              aria-label={`Shopping cart with ${getTotalItems()} items`}
             >
               <ShoppingCart className="h-5 w-5" />
+              {/* Cart item count badge (only shown when items exist) */}
               {getTotalItems() > 0 && (
                 <span className="absolute -top-1 -right-1 bg-brand-pink text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
                   {getTotalItems()}
@@ -94,6 +131,7 @@ const Header = () => {
               )}
             </Button>
 
+            {/* Desktop Order Online Button */}
             <Button
               className="hidden md:inline-flex bg-brand-pink hover:bg-pink-600 text-white"
               size="sm"
@@ -101,12 +139,13 @@ const Header = () => {
               Order Online
             </Button>
 
-            {/* Mobile Menu Button */}
+            {/* Mobile Menu Toggle Button */}
             <Button
               variant="ghost"
               size="sm"
               className="md:hidden p-2"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              onClick={toggleMobileMenu}
+              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
             >
               {isMenuOpen ? (
                 <X className="h-5 w-5" />
@@ -117,7 +156,7 @@ const Header = () => {
           </div>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* ========== Mobile Navigation Menu ========== */}
         <div
           className={cn(
             "md:hidden overflow-hidden transition-all duration-300",
@@ -125,16 +164,18 @@ const Header = () => {
           )}
         >
           <nav className="flex flex-col space-y-4 pb-4">
+            {/* Mobile navigation links */}
             {navItems.map((item) => (
               <a
                 key={item.name}
                 href={item.href}
                 className="text-gray-700 hover:text-brand-brown transition-colors font-medium"
-                onClick={() => setIsMenuOpen(false)}
+                onClick={closeMobileMenu} // Close menu when nav item is clicked
               >
                 {item.name}
               </a>
             ))}
+            {/* Mobile Order Online Button */}
             <Button
               className="bg-brand-pink hover:bg-pink-600 text-white w-full mt-2"
               size="sm"
@@ -145,8 +186,8 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Cart Sidebar */}
-      <CartSidebar isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+      {/* ========== Cart Sidebar ========== */}
+      <CartSidebar isOpen={isCartOpen} onClose={closeCart} />
     </header>
   );
 };
