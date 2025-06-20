@@ -134,8 +134,15 @@ const ProductCard = ({
           </Button>
         </div>
 
-        {/* Allergens Button */}
-        <div className="flex justify-center">
+        {/* Customize and Allergens Buttons */}
+        <div className="flex justify-center space-x-2">
+          <Button
+            variant="outline"
+            size="sm"
+            className="text-brand-brown border-brand-brown hover:bg-brand-brown hover:text-white"
+          >
+            Customize
+          </Button>
           <Button
             variant="outline"
             size="sm"
