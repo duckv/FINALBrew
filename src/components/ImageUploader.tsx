@@ -181,7 +181,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
 
     // Try static path as fallback
     if (!hasError && !fallbackSrc) {
-      const staticPath = getImagePath(category, filename);
+      const staticPath = getImagePath(category, filename, subcategory);
       setImageSrc(staticPath);
     }
   };
