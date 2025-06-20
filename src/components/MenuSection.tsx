@@ -223,6 +223,43 @@ const MenuSection = () => {
       category: "Pastries",
       hasToastOptions: true,
     },
+    // French Pastries
+    {
+      title: "Madeleine",
+      price: "$3.50",
+      description: "Shell-shaped sponge cake with lemon zest",
+      category: "Pastries",
+    },
+    {
+      title: "Macaron",
+      price: "$3.25",
+      description: "Delicate almond meringue sandwich cookies",
+      category: "Pastries",
+    },
+    {
+      title: "Profiterole",
+      price: "$4.75",
+      description: "Choux pastry filled with cream and chocolate drizzle",
+      category: "Pastries",
+    },
+    {
+      title: "Mille-feuille",
+      price: "$6.50",
+      description: "Napoleon pastry with layers of puff pastry and cream",
+      category: "Pastries",
+    },
+    {
+      title: "Tarte Tatin",
+      price: "$7.25",
+      description: "Upside-down apple tart with caramelized apples",
+      category: "Pastries",
+    },
+    {
+      title: "Croquembouche",
+      price: "$8.50",
+      description: "Tower of cream puffs bound with caramel",
+      category: "Pastries",
+    },
 
     // Breads
     {
