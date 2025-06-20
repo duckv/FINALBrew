@@ -41,63 +41,50 @@ export const CartProvider = ({ children }: CartProviderProps) => {
   const [items, setItems] = useState<CartItem[]>([]);
 
   const addItem = (newItem: Omit<CartItem, "id">) => {
-    setItems((currentItems) => {
-      // Check if item already exists in cart
-      const existingItem = currentItems.find(
-        (item) =>
-          item.name === newItem.name && item.category === newItem.category,
+    // Pre-calculate what the new cart would look like
+    const currentItems = items;
+    const existingItem = currentItems.find(
+      (item) =>
+        item.name === newItem.name && item.category === newItem.category,
+    );
+
+    let potentialItems: CartItem[];
+
+    if (existingItem) {
+      const newQuantity = Math.min(
+        existingItem.quantity + newItem.quantity,
+        MAX_ITEM_QUANTITY,
       );
+      potentialItems = currentItems.map((item) =>
+        item.id === existingItem.id ? { ...item, quantity: newQuantity } : item,
+      );
+    } else {
+      // Add new item with generated ID
+      const id =
+        Date.now().toString() + Math.random().toString(36).substr(2, 9);
+      potentialItems = [
+        ...currentItems,
+        {
+          ...newItem,
+          id,
+          quantity: Math.min(newItem.quantity, MAX_ITEM_QUANTITY),
+        },
+      ];
+    }
 
-      if (existingItem) {
-        const newQuantity = Math.min(
-          existingItem.quantity + newItem.quantity,
-          MAX_ITEM_QUANTITY,
-        );
-        const updatedItems = currentItems.map((item) =>
-          item.id === existingItem.id
-            ? { ...item, quantity: newQuantity }
-            : item,
-        );
+    // Check cart total limit before updating state
+    const newTotal = potentialItems.reduce(
+      (total, item) => total + item.price * item.quantity,
+      0,
+    );
+    if (newTotal > MAX_CART_TOTAL) {
+      throw new Error(
+        "Order Limit Exceeded\n\nOur max online order amount is $150 before taxes & tips. Please call us at (908) 933-0123 to place a larger order.",
+      );
+    }
 
-        // Check cart total limit
-        const newTotal = updatedItems.reduce(
-          (total, item) => total + item.price * item.quantity,
-          0,
-        );
-        if (newTotal > MAX_CART_TOTAL) {
-          throw new Error(
-            "Order Limit Exceeded\n\nOur max online order amount is $150 before taxes & tips. Please call us at (908) 933-0123 to place a larger order.",
-          );
-        }
-
-        return updatedItems;
-      } else {
-        // Add new item with generated ID
-        const id =
-          Date.now().toString() + Math.random().toString(36).substr(2, 9);
-        const newItems = [
-          ...currentItems,
-          {
-            ...newItem,
-            id,
-            quantity: Math.min(newItem.quantity, MAX_ITEM_QUANTITY),
-          },
-        ];
-
-        // Check cart total limit
-        const newTotal = newItems.reduce(
-          (total, item) => total + item.price * item.quantity,
-          0,
-        );
-        if (newTotal > MAX_CART_TOTAL) {
-          throw new Error(
-            "Order Limit Exceeded\n\nOur max online order amount is $150 before taxes & tips. Please call us at (908) 933-0123 to place a larger order.",
-          );
-        }
-
-        return newItems;
-      }
-    });
+    // Only update state if validation passes
+    setItems(potentialItems);
   };
 
   const removeItem = (id: string) => {
@@ -109,24 +96,25 @@ export const CartProvider = ({ children }: CartProviderProps) => {
       removeItem(id);
     } else {
       const clampedQuantity = Math.min(quantity, MAX_ITEM_QUANTITY);
-      setItems((currentItems) => {
-        const updatedItems = currentItems.map((item) =>
-          item.id === id ? { ...item, quantity: clampedQuantity } : item,
-        );
 
-        // Check cart total limit
-        const newTotal = updatedItems.reduce(
-          (total, item) => total + item.price * item.quantity,
-          0,
-        );
-        if (newTotal > MAX_CART_TOTAL) {
-          throw new Error(
-            "Order Limit Exceeded\n\nOur max online order amount is $150 before taxes & tips. Please call us at (908) 933-0123 to place a larger order.",
-          );
-        }
+      // Pre-calculate what the new cart would look like
+      const potentialItems = items.map((item) =>
+        item.id === id ? { ...item, quantity: clampedQuantity } : item,
+      );
 
-        return updatedItems;
-      });
+      // Check cart total limit before updating state
+      const newTotal = potentialItems.reduce(
+        (total, item) => total + item.price * item.quantity,
+        0,
+      );
+      if (newTotal > MAX_CART_TOTAL) {
+        throw new Error(
+          "Order Limit Exceeded\n\nOur max online order amount is $150 before taxes & tips. Please call us at (908) 933-0123 to place a larger order.",
+        );
+      }
+
+      // Only update state if validation passes
+      setItems(potentialItems);
     }
   };
 
