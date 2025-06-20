@@ -38,7 +38,10 @@ interface CartProviderProps {
 }
 
 export const CartProvider = ({ children }: CartProviderProps) => {
-  const [items, setItems] = useState<CartItem[]>([]);
+  const [items, setItems] = useState<CartItem[]>(() => {
+    // Initialize with empty cart to avoid any existing problematic state
+    return [];
+  });
 
   const addItem = (newItem: Omit<CartItem, "id">) => {
     // Pre-calculate what the new cart would look like
