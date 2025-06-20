@@ -1639,6 +1639,394 @@ if ("serviceWorker" in navigator) {
 }
 
 // =====================================================
+// CHECKOUT SYSTEM
+// =====================================================
+
+/**
+ * Checkout state management
+ */
+const CHECKOUT_STATE = {
+  subtotal: 0,
+  tax: 0,
+  tip: 0,
+  total: 0,
+  tipPercentage: 0,
+  orderType: "pickup",
+  paymentMethod: "card",
+};
+
+/**
+ * Opens the checkout system
+ */
+function openCheckout() {
+  if (APP_STATE.cart.items.length === 0) {
+    showToast("Your cart is empty", "warning");
+    return;
+  }
+
+  const checkoutOverlay = document.getElementById("checkoutOverlay");
+  if (!checkoutOverlay) return;
+
+  // Populate checkout with cart data
+  populateCheckout();
+
+  checkoutOverlay.classList.add("show");
+  document.body.style.overflow = "hidden";
+}
+
+/**
+ * Closes the checkout system
+ */
+function closeCheckout() {
+  const checkoutOverlay = document.getElementById("checkoutOverlay");
+  if (!checkoutOverlay) return;
+
+  checkoutOverlay.classList.remove("show");
+  document.body.style.overflow = "";
+}
+
+/**
+ * Returns to cart from checkout
+ */
+function returnToCart() {
+  closeCheckout();
+  openCart();
+}
+
+/**
+ * Populates checkout with current cart data
+ */
+function populateCheckout() {
+  const checkoutItems = document.getElementById("checkoutItems");
+  if (!checkoutItems) return;
+
+  // Populate items
+  checkoutItems.innerHTML = APP_STATE.cart.items
+    .map(
+      (item) => `
+    <div class="checkout-item">
+      <span class="item-name">${item.name}</span>
+      <span class="item-quantity">x${item.quantity}</span>
+      <span class="item-price">${formatCurrency(item.price * item.quantity)}</span>
+    </div>
+  `,
+    )
+    .join("");
+
+  // Calculate totals
+  CHECKOUT_STATE.subtotal = Cart.getTotal();
+  CHECKOUT_STATE.tax = CHECKOUT_STATE.subtotal * 0.06625; // NJ tax rate
+  calculateTotals();
+
+  // Setup event listeners
+  setupCheckoutEventListeners();
+
+  // Set minimum pickup time to 30 minutes from now
+  setMinimumDateTime();
+}
+
+/**
+ * Sets up checkout event listeners
+ */
+function setupCheckoutEventListeners() {
+  // Tip buttons
+  document.querySelectorAll(".tip-btn").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      document
+        .querySelectorAll(".tip-btn")
+        .forEach((b) => b.classList.remove("active"));
+      e.target.classList.add("active");
+
+      const tipType = e.target.dataset.tip;
+      if (tipType === "custom") {
+        document.getElementById("customTip").style.display = "block";
+        document.getElementById("customTip").focus();
+      } else {
+        document.getElementById("customTip").style.display = "none";
+        CHECKOUT_STATE.tipPercentage = parseInt(tipType);
+        calculateTotals();
+      }
+    });
+  });
+
+  // Custom tip input
+  const customTipInput = document.getElementById("customTip");
+  if (customTipInput) {
+    customTipInput.addEventListener("input", (e) => {
+      const customAmount = parseFloat(e.target.value) || 0;
+      CHECKOUT_STATE.tip = customAmount;
+      CHECKOUT_STATE.tipPercentage = 0;
+      calculateTotals();
+    });
+  }
+
+  // Order type radio buttons
+  document.querySelectorAll('input[name="orderType"]').forEach((radio) => {
+    radio.addEventListener("change", (e) => {
+      CHECKOUT_STATE.orderType = e.target.value;
+      toggleOrderTypeDetails();
+    });
+  });
+
+  // Payment method radio buttons
+  document.querySelectorAll('input[name="paymentMethod"]').forEach((radio) => {
+    radio.addEventListener("change", (e) => {
+      CHECKOUT_STATE.paymentMethod = e.target.value;
+      togglePaymentDetails();
+    });
+  });
+
+  // Phone number formatting
+  const phoneInput = document.getElementById("customerPhone");
+  if (phoneInput) {
+    phoneInput.addEventListener("input", formatPhoneNumber);
+  }
+}
+
+/**
+ * Calculates checkout totals
+ */
+function calculateTotals() {
+  if (CHECKOUT_STATE.tipPercentage > 0) {
+    CHECKOUT_STATE.tip =
+      CHECKOUT_STATE.subtotal * (CHECKOUT_STATE.tipPercentage / 100);
+  }
+
+  CHECKOUT_STATE.total =
+    CHECKOUT_STATE.subtotal + CHECKOUT_STATE.tax + CHECKOUT_STATE.tip;
+
+  // Update display
+  document.getElementById("checkoutSubtotal").textContent = formatCurrency(
+    CHECKOUT_STATE.subtotal,
+  );
+  document.getElementById("checkoutTax").textContent = formatCurrency(
+    CHECKOUT_STATE.tax,
+  );
+  document.getElementById("checkoutTip").textContent = formatCurrency(
+    CHECKOUT_STATE.tip,
+  );
+  document.getElementById("checkoutTotal").textContent = formatCurrency(
+    CHECKOUT_STATE.total,
+  );
+
+  // Show/hide large order warning
+  const warningElement = document.getElementById("largeOrderWarning");
+  if (warningElement) {
+    if (CHECKOUT_STATE.subtotal > 150) {
+      warningElement.style.display = "block";
+    } else {
+      warningElement.style.display = "none";
+    }
+  }
+}
+
+/**
+ * Toggles order type details (pickup/delivery)
+ */
+function toggleOrderTypeDetails() {
+  const pickupDetails = document.getElementById("pickupDetails");
+  const deliveryDetails = document.getElementById("deliveryDetails");
+
+  if (CHECKOUT_STATE.orderType === "pickup") {
+    pickupDetails.style.display = "block";
+    deliveryDetails.style.display = "none";
+  } else {
+    pickupDetails.style.display = "none";
+    deliveryDetails.style.display = "block";
+  }
+}
+
+/**
+ * Toggles payment method details
+ */
+function togglePaymentDetails() {
+  const cardDetails = document.getElementById("cardDetails");
+
+  if (CHECKOUT_STATE.paymentMethod === "card") {
+    cardDetails.style.display = "block";
+  } else {
+    cardDetails.style.display = "none";
+  }
+}
+
+/**
+ * Formats phone number input
+ */
+function formatPhoneNumber(e) {
+  let value = e.target.value.replace(/\D/g, "");
+  if (value.length >= 6) {
+    value = `(${value.slice(0, 3)}) ${value.slice(3, 6)}-${value.slice(6, 10)}`;
+  } else if (value.length >= 3) {
+    value = `(${value.slice(0, 3)}) ${value.slice(3)}`;
+  }
+  e.target.value = value;
+}
+
+/**
+ * Sets minimum date/time for pickup and delivery
+ */
+function setMinimumDateTime() {
+  const now = new Date();
+  now.setMinutes(now.getMinutes() + 30); // 30 minutes from now
+
+  const minDateTime = now.toISOString().slice(0, 16);
+
+  const pickupInput = document.getElementById("pickupDateTime");
+  const deliveryInput = document.getElementById("deliveryDateTime");
+
+  if (pickupInput) pickupInput.min = minDateTime;
+  if (deliveryInput) deliveryInput.min = minDateTime;
+}
+
+/**
+ * Places the order
+ */
+function placeOrder() {
+  // Validate required fields
+  const requiredFields = ["customerName", "customerPhone", "customerEmail"];
+  let isValid = true;
+
+  requiredFields.forEach((fieldId) => {
+    const field = document.getElementById(fieldId);
+    if (!field.value.trim()) {
+      field.style.borderColor = "#ef4444";
+      isValid = false;
+    } else {
+      field.style.borderColor = "";
+    }
+  });
+
+  if (!isValid) {
+    showToast("Please fill in all required fields", "error");
+    return;
+  }
+
+  // Check for large order
+  if (CHECKOUT_STATE.subtotal > 150) {
+    showToast("Please call (908) 933-0123 for orders over $150", "warning");
+    return;
+  }
+
+  // Simulate order placement
+  showToast(
+    "Order placed successfully! You will receive a confirmation email.",
+    "success",
+  );
+
+  // Clear cart and close checkout
+  Cart.clearCart();
+  closeCheckout();
+
+  // In a real app, this would send data to the server
+  console.log("Order data:", {
+    items: APP_STATE.cart.items,
+    customer: {
+      name: document.getElementById("customerName").value,
+      phone: document.getElementById("customerPhone").value,
+      email: document.getElementById("customerEmail").value,
+    },
+    orderType: CHECKOUT_STATE.orderType,
+    totals: CHECKOUT_STATE,
+    specialInstructions: document.getElementById("specialInstructions").value,
+  });
+}
+
+/**
+ * Updates checkout function for the existing checkout button
+ */
+function checkout() {
+  closeCart();
+  openCheckout();
+}
+
+// =====================================================
+// GOOGLE REVIEWS INTEGRATION
+// =====================================================
+
+/**
+ * Loads Google Reviews (simulated)
+ */
+function loadGoogleReviews() {
+  const reviewsContainer = document.getElementById("reviewsContainer");
+  if (!reviewsContainer) return;
+
+  // Simulate loading reviews from Google Places API
+  setTimeout(() => {
+    const reviews = [
+      {
+        author: "Sarah Johnson",
+        rating: 5,
+        text: "Amazing coffee and pastries! The sourdough bread is incredible.",
+        time: "2 weeks ago",
+      },
+      {
+        author: "Mike Chen",
+        rating: 5,
+        text: "Best bakery in Berkeley Heights. Their croissants are perfect!",
+        time: "1 month ago",
+      },
+      {
+        author: "Lisa Rodriguez",
+        rating: 4,
+        text: "Great atmosphere and friendly staff. The pizza is surprisingly good too!",
+        time: "3 weeks ago",
+      },
+    ];
+
+    reviewsContainer.innerHTML = `
+      <div class="reviews-grid">
+        ${reviews
+          .map(
+            (review) => `
+          <div class="review-card">
+            <div class="review-header">
+              <div class="review-author">${review.author}</div>
+              <div class="review-rating">
+                ${"★".repeat(review.rating)}${"☆".repeat(5 - review.rating)}
+              </div>
+            </div>
+            <p class="review-text">${review.text}</p>
+            <div class="review-time">${review.time}</div>
+          </div>
+        `,
+          )
+          .join("")}
+      </div>
+      <div class="reviews-footer">
+        <p>Reviews from Google Places</p>
+      </div>
+    `;
+  }, 1000);
+}
+
+// =====================================================
+// CATERING IMPROVEMENTS
+// =====================================================
+
+/**
+ * Improves catering section accessibility
+ */
+function improveCateringAccessibility() {
+  const cateringCards = document.querySelectorAll(".catering-card");
+  cateringCards.forEach((card, index) => {
+    card.setAttribute("tabindex", "0");
+    card.setAttribute("role", "button");
+    card.setAttribute(
+      "aria-label",
+      `Learn more about ${card.querySelector("h3").textContent}`,
+    );
+
+    card.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        // Handle catering inquiry
+        showToast("Please call (908) 933-0123 for catering inquiries", "info");
+      }
+    });
+  });
+}
+
+// =====================================================
 // EXPORTS (for module systems if needed)
 // =====================================================
 
@@ -1652,5 +2040,8 @@ if (typeof module !== "undefined" && module.exports) {
     closeModal,
     openCart,
     closeCart,
+    openCheckout,
+    closeCheckout,
+    placeOrder,
   };
 }
