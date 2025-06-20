@@ -15,6 +15,7 @@ import MenuSection from "@/components/MenuSection";
 import CateringSection from "@/components/CateringSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import GallerySection from "@/components/GallerySection";
+import GoogleReviews from "@/components/GoogleReviews";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 
