@@ -34,7 +34,8 @@
           <!-- Brand Logo and Tagline -->
           <div class="brand" onclick="scrollToTop()">
             <h1 class="brand-title">Bread N' Br☕︎w</h1>
-            <p class="brand-tagline">Arstian Breads, Perfect Brews, Fine Patisseries
+            <p class="brand-tagline">
+              Arstian Breads, Perfect Brews, Fine Patisseries
             </p>
           </div>
 
@@ -65,6 +66,7 @@
                 <circle cx="20" cy="21" r="1"></circle>
                 <path d="m1 1 4 4 15 2 1 13H6"></path>
               </svg>
+              <span class="cart-label">Cart</span>
               <span class="cart-count" id="cartCount">0</span>
             </button>
 
@@ -246,7 +248,7 @@
           <div class="contact-info">
             <div class="contact-item">
               <h3>Address</h3>
-              <p>123 Main Street<br />Berkeley Heights, NJ 07922</p>
+              <p>512 Springfield Ave<br />Berkeley Heights, NJ 07922</p>
             </div>
             <div class="contact-item">
               <h3>Hours</h3>
@@ -259,9 +261,29 @@
             <div class="contact-item">
               <h3>Contact</h3>
               <p>
-                Phone: (908) 555-0123<br />
-                Email: hello@breadnbrew.com
+                Phone: <a href="tel:+19089330123">(908) 933-0123</a><br />
+                Email:
+                <a href="mailto:breadnbrew512@gmail.com"
+                  >breadnbrew512@gmail.com</a
+                >
               </p>
+            </div>
+          </div>
+
+          <div class="contact-map">
+            <h3>Find Us</h3>
+            <div class="map-container">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3026.2859775757846!2d-74.37845878459478!3d40.67891327933566!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c3a9b2b5f4a7a9%3A0x12345!2s512%20Springfield%20Ave%2C%20Berkeley%20Heights%2C%20NJ%2007922!5e0!3m2!1sen!2sus!4v1640000000000!5m2!1sen!2sus"
+                width="100%"
+                height="300"
+                style="border: 0"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                aria-label="Google Map showing 512 Springfield Ave, Berkeley Heights, NJ 07922"
+              >
+              </iframe>
             </div>
           </div>
 
@@ -292,6 +314,23 @@
               </button>
             </form>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== REVIEWS SECTION ==================== -->
+    <section id="reviews" class="reviews-section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">What Our Customers Say</h2>
+          <p class="section-description">
+            Real reviews from satisfied customers
+          </p>
+        </div>
+
+        <div class="reviews-container" id="reviewsContainer">
+          <!-- Reviews will be loaded dynamically from Google Reviews -->
+          <div class="loading-reviews">Loading reviews...</div>
         </div>
       </div>
     </section>
