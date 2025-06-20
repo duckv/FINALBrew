@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Minus, Plus, Info } from "lucide-react";
+import { Minus, Plus, Info, AlertTriangle } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 import { useCart } from "@/contexts/CartContext";
 import { toast } from "sonner";
+import CustomizeModal from "./CustomizeModal";
+import AllergenModal from "./AllergenModal";
 
 interface ProductCardProps {
   title: string;
@@ -24,7 +27,62 @@ const ProductCard = ({
   category,
 }: ProductCardProps) => {
   const [quantity, setQuantity] = useState(1);
+  const [showCustomizeModal, setShowCustomizeModal] = useState(false);
+  const [showAllergenModal, setShowAllergenModal] = useState(false);
   const { addItem } = useCart();
+
+  // Auto-detect allergens based on item name and category
+  const detectAllergens = () => {
+    const allergens: string[] = [];
+    const itemText = `${title} ${description || ""} ${category}`.toLowerCase();
+
+    // Common allergen detection patterns
+    if (
+      itemText.includes("wheat") ||
+      itemText.includes("bread") ||
+      itemText.includes("croissant") ||
+      itemText.includes("pastry")
+    ) {
+      allergens.push("wheat");
+    }
+    if (
+      itemText.includes("milk") ||
+      itemText.includes("cream") ||
+      itemText.includes("butter") ||
+      itemText.includes("cheese")
+    ) {
+      allergens.push("milk");
+    }
+    if (
+      itemText.includes("egg") ||
+      itemText.includes("custard") ||
+      itemText.includes("mayonnaise")
+    ) {
+      allergens.push("eggs");
+    }
+    if (
+      itemText.includes("almond") ||
+      itemText.includes("walnut") ||
+      itemText.includes("pecan") ||
+      itemText.includes("hazelnut")
+    ) {
+      allergens.push("tree nuts");
+    }
+    if (itemText.includes("peanut")) {
+      allergens.push("peanuts");
+    }
+    if (itemText.includes("sesame")) {
+      allergens.push("sesame");
+    }
+    if (itemText.includes("soy")) {
+      allergens.push("soy");
+    }
+
+    return allergens;
+  };
+
+  const allergens = detectAllergens();
+  const hasAllergens = allergens.length > 0;
 
   const incrementQuantity = () => setQuantity((prev) => Math.min(prev + 1, 25));
   const decrementQuantity = () => setQuantity((prev) => Math.max(1, prev - 1));
@@ -45,6 +103,38 @@ const ProductCard = ({
       // Show success toast
       toast.success(
         `Added ${quantity} ${title}${quantity > 1 ? "s" : ""} to cart`,
+      );
+
+      // Reset quantity to 1 after adding to cart
+      setQuantity(1);
+    } catch (error) {
+      // Show error toast
+      toast.error(
+        error instanceof Error ? error.message : "Failed to add item to cart",
+      );
+    }
+  };
+
+  const handleCustomizeAddToCart = (
+    customizations: any[],
+    totalPrice: number,
+  ) => {
+    try {
+      const customizationNames = customizations.map((c) => c.name).join(", ");
+      const itemName =
+        customizations.length > 0 ? `${title} (${customizationNames})` : title;
+
+      addItem({
+        name: itemName,
+        price: totalPrice,
+        quantity: quantity,
+        image: image || getPlaceholderImage(),
+        category: category,
+      });
+
+      // Show success toast
+      toast.success(
+        `Added ${quantity} ${itemName}${quantity > 1 ? "s" : ""} to cart`,
       );
 
       // Reset quantity to 1 after adding to cart
@@ -94,6 +184,37 @@ const ProductCard = ({
 
         {description && (
           <p className="text-gray-600 text-sm mb-4">{description}</p>
+        )}
+
+        {/* Allergen Indicator */}
+        {hasAllergens && (
+          <div className="mb-4">
+            <div className="flex items-center space-x-2 p-2 bg-orange-50 border border-orange-200 rounded-md">
+              <AlertTriangle className="h-4 w-4 text-orange-600 flex-shrink-0" />
+              <div className="flex flex-wrap gap-1">
+                <span className="text-xs text-orange-800 font-medium">
+                  Contains:
+                </span>
+                {allergens.slice(0, 2).map((allergen) => (
+                  <Badge
+                    key={allergen}
+                    variant="secondary"
+                    className="text-xs bg-orange-100 text-orange-800"
+                  >
+                    {allergen.charAt(0).toUpperCase() + allergen.slice(1)}
+                  </Badge>
+                ))}
+                {allergens.length > 2 && (
+                  <Badge
+                    variant="secondary"
+                    className="text-xs bg-orange-100 text-orange-800"
+                  >
+                    +{allergens.length - 2} more
+                  </Badge>
+                )}
+              </div>
+            </div>
+          </div>
         )}
 
         {/* Options */}
@@ -147,18 +268,38 @@ const ProductCard = ({
             variant="outline"
             size="sm"
             className="text-brand-brown border-brand-brown hover:bg-brand-brown hover:text-white w-full"
+            onClick={() => setShowCustomizeModal(true)}
           >
             Customize
           </Button>
           <Button
             variant="outline"
             size="sm"
-            className="text-brand-brown border-brand-brown hover:bg-brand-brown hover:text-white w-full"
+            className={`border-brand-brown hover:bg-brand-brown hover:text-white w-full ${
+              hasAllergens ? "text-orange-600" : "text-brand-brown"
+            }`}
+            onClick={() => setShowAllergenModal(true)}
           >
             <Info className="h-4 w-4 mr-1" />
             Allergens
           </Button>
         </div>
+
+        {/* Modals */}
+        <CustomizeModal
+          isOpen={showCustomizeModal}
+          onClose={() => setShowCustomizeModal(false)}
+          itemName={title}
+          basePrice={parseFloat(price.replace("$", ""))}
+          onAddToCart={handleCustomizeAddToCart}
+        />
+
+        <AllergenModal
+          isOpen={showAllergenModal}
+          onClose={() => setShowAllergenModal(false)}
+          itemName={title}
+          allergens={allergens}
+        />
       </div>
     </div>
   );
