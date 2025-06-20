@@ -317,6 +317,8 @@ const MenuSection = () => {
       description:
         "Fresh mozzarella, tomato sauce, and basil on our house-made dough",
       category: "Pizza",
+      image: "margherita-pizza.jpg",
+      subcategory: "pizza",
     },
     {
       title: "Classic Cheese Pizza",
@@ -324,18 +326,24 @@ const MenuSection = () => {
       description: "Traditional cheese pizza with option to add pepperoni",
       category: "Pizza",
       hasCustomizations: true,
+      image: "classic-cheese-pizza.jpg",
+      subcategory: "pizza",
     },
     {
       title: "Spicy Brooklyn Pizza",
       price: "$18.75",
       description: "Pepperoni, jalapeños, and spicy sauce on thin crust",
       category: "Pizza",
+      image: "spicy-brooklyn-pizza.jpg",
+      subcategory: "pizza",
     },
     {
       title: "Flatbread Pizza",
       price: "$14.50",
       description: "Artisan flatbread with seasonal toppings",
       category: "Pizza",
+      image: "flatbread-pizza.jpg",
+      subcategory: "pizza",
     },
 
     // Breakfast
