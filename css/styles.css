@@ -1819,45 +1819,6 @@ html {
    ENHANCED FEATURES & NEW COMPONENTS
    ===================================================== */
 
-/* Enhanced Search Box Alignment */
-.search-container {
-  position: relative;
-  display: flex;
-  align-items: center;
-  max-width: 400px;
-  margin-bottom: var(--spacing-lg);
-}
-
-.search-icon {
-  position: absolute;
-  left: var(--spacing-md);
-  width: 18px;
-  height: 18px;
-  color: var(--gray-400);
-  z-index: 1;
-}
-
-.search-input {
-  width: 100%;
-  padding: var(--spacing-md) var(--spacing-md) var(--spacing-md) 3rem;
-  border: 1px solid var(--gray-300);
-  border-radius: var(--radius-lg);
-  font-size: 0.875rem;
-  background: var(--white);
-  transition: all var(--transition-fast);
-}
-
-.search-input:focus {
-  outline: none;
-  border-color: var(--brand-brown);
-  box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
-}
-
-.search-input::placeholder {
-  color: var(--gray-400);
-  line-height: 1.5;
-}
-
 /* Enhanced Floating Cart */
 .floating-cart {
   position: fixed;
