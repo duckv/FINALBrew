@@ -11,7 +11,17 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { ArrowLeft, CreditCard, MapPin, User, Phone, Mail, Smartphone, Car, Truck } from "lucide-react";
+import {
+  ArrowLeft,
+  CreditCard,
+  MapPin,
+  User,
+  Phone,
+  Mail,
+  Smartphone,
+  Car,
+  Truck,
+} from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
 import { toast } from "sonner";
 
@@ -22,16 +32,25 @@ interface CheckoutScreenProps {
 const CheckoutScreen = ({ onBack }: CheckoutScreenProps) => {
   const { items, getTotalPrice, clearCart } = useCart();
   const [loading, setLoading] = useState(false);
-  const [orderType, setOrderType] = useState<"pickup" | "ubereats" | "doordash" | "grubhub">("pickup");
-  const [contactMethod, setContactMethod] = useState<"email" | "phone">("email");
+  const [orderType, setOrderType] = useState<
+    "pickup" | "ubereats" | "doordash" | "grubhub"
+  >("pickup");
+  const [contactMethod, setContactMethod] = useState<"email" | "phone">(
+    "email",
+  );
   const [tipPercentage, setTipPercentage] = useState<number>(18);
   const [customTip, setCustomTip] = useState<string>("");
-  const [paymentMethod, setPaymentMethod] = useState<"card" | "digital">("card");
+  const [paymentMethod, setPaymentMethod] = useState<"card" | "digital">(
+    "card",
+  );
 
   const subtotal = getTotalPrice();
   const tax = subtotal * 0.0875; // NJ sales tax (8.75%)
   const deliveryFee = 0; // No delivery fee - handled by third-party services
-  const tipAmount = tipPercentage === 0 ? parseFloat(customTip || "0") : (subtotal * tipPercentage) / 100;
+  const tipAmount =
+    tipPercentage === 0
+      ? parseFloat(customTip || "0")
+      : (subtotal * tipPercentage) / 100;
   const total = subtotal + tax + deliveryFee + tipAmount;
 
   // Generate 15-minute interval times
@@ -62,13 +81,13 @@ const CheckoutScreen = ({ onBack }: CheckoutScreenProps) => {
 
     while (startTime <= endTime) {
       const timeString = startTime.toLocaleTimeString([], {
-        hour: 'numeric',
-        minute: '2-digit',
-        hour12: true
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true,
       });
       slots.push({
         value: startTime.toISOString(),
-        label: timeString
+        label: timeString,
       });
       startTime.setMinutes(startTime.getMinutes() + 15);
     }
@@ -156,11 +175,11 @@ const CheckoutScreen = ({ onBack }: CheckoutScreenProps) => {
                 {orderType !== "pickup" && (
                   <div className="p-3 bg-yellow-50 border border-yellow-200 rounded-lg mt-3">
                     <p className="text-sm text-yellow-800">
-                      <strong>Note:</strong> Delivery rates may vary and will be handled by the selected delivery service.
+                      <strong>Note:</strong> Delivery rates may vary and will be
+                      handled by the selected delivery service.
                     </p>
                   </div>
                 )}
-                </RadioGroup>
               </div>
 
               {/* Customer Information */}
@@ -193,7 +212,9 @@ const CheckoutScreen = ({ onBack }: CheckoutScreenProps) => {
 
                 {/* Contact Method Selection */}
                 <div>
-                  <Label className="text-sm font-medium">Preferred Contact Method</Label>
+                  <Label className="text-sm font-medium">
+                    Preferred Contact Method
+                  </Label>
                   <RadioGroup
                     value={contactMethod}
                     onValueChange={setContactMethod}
@@ -202,7 +223,10 @@ const CheckoutScreen = ({ onBack }: CheckoutScreenProps) => {
                     <div className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-gray-50">
                       <RadioGroupItem value="email" id="email-contact" />
                       <Mail className="h-5 w-5 text-gray-600" />
-                      <Label htmlFor="email-contact" className="flex-1 cursor-pointer">
+                      <Label
+                        htmlFor="email-contact"
+                        className="flex-1 cursor-pointer"
+                      >
                         Email (Recommended)
                       </Label>
                     </div>
@@ -210,7 +234,10 @@ const CheckoutScreen = ({ onBack }: CheckoutScreenProps) => {
                     <div className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-gray-50">
                       <RadioGroupItem value="phone" id="phone-contact" />
                       <Phone className="h-5 w-5 text-gray-600" />
-                      <Label htmlFor="phone-contact" className="flex-1 cursor-pointer">
+                      <Label
+                        htmlFor="phone-contact"
+                        className="flex-1 cursor-pointer"
+                      >
                         Phone/SMS
                       </Label>
                     </div>
@@ -219,7 +246,10 @@ const CheckoutScreen = ({ onBack }: CheckoutScreenProps) => {
 
                 {contactMethod === "email" && (
                   <div>
-                    <Label htmlFor="email">Email Address (Optional) - preferred contact method is phone/SMS</Label>
+                    <Label htmlFor="email">
+                      Email Address (Optional) - preferred contact method is
+                      phone/SMS
+                    </Label>
                     <Input
                       id="email"
                       type="email"
@@ -231,7 +261,10 @@ const CheckoutScreen = ({ onBack }: CheckoutScreenProps) => {
 
                 {contactMethod === "phone" && (
                   <div>
-                    <Label htmlFor="phone">Phone Number (Optional) - preferred contact method is phone/SMS</Label>
+                    <Label htmlFor="phone">
+                      Phone Number (Optional) - preferred contact method is
+                      phone/SMS
+                    </Label>
                     <Input
                       id="phone"
                       type="tel"
@@ -252,7 +285,13 @@ const CheckoutScreen = ({ onBack }: CheckoutScreenProps) => {
 
                   <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
                     <p className="text-sm text-blue-800">
-                      <strong>Note:</strong> You'll be redirected to {orderType === "ubereats" ? "UberEats" : orderType === "doordash" ? "DoorDash" : "GrubHub"} to complete delivery and payment.
+                      <strong>Note:</strong> You'll be redirected to{" "}
+                      {orderType === "ubereats"
+                        ? "UberEats"
+                        : orderType === "doordash"
+                          ? "DoorDash"
+                          : "GrubHub"}{" "}
+                      to complete delivery and payment.
                     </p>
                   </div>
 
@@ -303,9 +342,7 @@ const CheckoutScreen = ({ onBack }: CheckoutScreenProps) => {
               {/* Pickup Time Selection */}
               {orderType === "pickup" && (
                 <div className="space-y-4">
-                  <h3 className="font-semibold text-gray-900">
-                    Pickup Time
-                  </h3>
+                  <h3 className="font-semibold text-gray-900">Pickup Time</h3>
 
                   <div className="grid grid-cols-2 gap-4">
                     <div>
@@ -363,7 +400,9 @@ const CheckoutScreen = ({ onBack }: CheckoutScreenProps) => {
                     <Button
                       key={percentage}
                       type="button"
-                      variant={tipPercentage === percentage ? "default" : "outline"}
+                      variant={
+                        tipPercentage === percentage ? "default" : "outline"
+                      }
                       className={`${
                         tipPercentage === percentage
                           ? "bg-brand-pink hover:bg-pink-600 text-white"
@@ -429,7 +468,10 @@ const CheckoutScreen = ({ onBack }: CheckoutScreenProps) => {
                   <div className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-gray-50">
                     <RadioGroupItem value="card" id="card-payment" />
                     <CreditCard className="h-5 w-5 text-gray-600" />
-                    <Label htmlFor="card-payment" className="flex-1 cursor-pointer">
+                    <Label
+                      htmlFor="card-payment"
+                      className="flex-1 cursor-pointer"
+                    >
                       Debit/Credit Card
                     </Label>
                   </div>
@@ -437,7 +479,10 @@ const CheckoutScreen = ({ onBack }: CheckoutScreenProps) => {
                   <div className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-gray-50">
                     <RadioGroupItem value="digital" id="digital-payment" />
                     <Smartphone className="h-5 w-5 text-gray-600" />
-                    <Label htmlFor="digital-payment" className="flex-1 cursor-pointer">
+                    <Label
+                      htmlFor="digital-payment"
+                      className="flex-1 cursor-pointer"
+                    >
                       Apple Pay / Google Pay
                     </Label>
                   </div>
