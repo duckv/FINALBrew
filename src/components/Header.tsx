@@ -87,14 +87,21 @@ const Header = () => {
         <div className="flex items-center justify-between">
           {/* ========== Brand Logo and Tagline ========== */}
           <div className="flex items-center">
-            <div>
+            <div
+              className="cursor-pointer"
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            >
               {/* Main brand name with coffee emoji */}
               <h1 className="font-heading text-2xl font-bold text-brand-pink">
                 Bread N' Br☕︎w
               </h1>
               {/* Brand tagline */}
               <p className="text-sm text-gray-600 italic">
-                Artisan Breads, Perfect Brews, & Fine Patisseries
+                Perfect Brews, Fine Patisseries
+              </p>
+              <p className="text-xs text-gray-500 italic">
+                Freshly baked pastries and specialty coffee in the heart of
+                Berkeley Heights.
               </p>
             </div>
           </div>
