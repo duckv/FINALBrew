@@ -14,6 +14,7 @@ interface ProductCardProps {
   image?: string;
   hasToastOptions?: boolean;
   hasSliceOptions?: boolean;
+  hasCustomizations?: boolean;
   category: string;
 }
 
