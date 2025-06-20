@@ -88,18 +88,18 @@ const ProductCard = ({
   const decrementQuantity = () => setQuantity((prev) => Math.max(1, prev - 1));
 
   const handleAddToCart = () => {
-    try {
-      // Parse price string to number (remove $ and convert)
-      const numericPrice = parseFloat(price.replace("$", ""));
+    // Parse price string to number (remove $ and convert)
+    const numericPrice = parseFloat(price.replace("$", ""));
 
-      addItem({
-        name: title,
-        price: numericPrice,
-        quantity: quantity,
-        image: image || getPlaceholderImage(),
-        category: category,
-      });
+    const success = addItem({
+      name: title,
+      price: numericPrice,
+      quantity: quantity,
+      image: image || getPlaceholderImage(),
+      category: category,
+    });
 
+    if (success) {
       // Show success toast
       toast.success(
         `Added ${quantity} ${title}${quantity > 1 ? "s" : ""} to cart`,
@@ -107,31 +107,27 @@ const ProductCard = ({
 
       // Reset quantity to 1 after adding to cart
       setQuantity(1);
-    } catch (error) {
-      // Show error toast
-      toast.error(
-        error instanceof Error ? error.message : "Failed to add item to cart",
-      );
     }
+    // If not successful, the order limit dialog will be shown automatically
   };
 
   const handleCustomizeAddToCart = (
     customizations: any[],
     totalPrice: number,
   ) => {
-    try {
-      const customizationNames = customizations.map((c) => c.name).join(", ");
-      const itemName =
-        customizations.length > 0 ? `${title} (${customizationNames})` : title;
+    const customizationNames = customizations.map((c) => c.name).join(", ");
+    const itemName =
+      customizations.length > 0 ? `${title} (${customizationNames})` : title;
 
-      addItem({
-        name: itemName,
-        price: totalPrice,
-        quantity: quantity,
-        image: image || getPlaceholderImage(),
-        category: category,
-      });
+    const success = addItem({
+      name: itemName,
+      price: totalPrice,
+      quantity: quantity,
+      image: image || getPlaceholderImage(),
+      category: category,
+    });
 
+    if (success) {
       // Show success toast
       toast.success(
         `Added ${quantity} ${itemName}${quantity > 1 ? "s" : ""} to cart`,
@@ -139,12 +135,8 @@ const ProductCard = ({
 
       // Reset quantity to 1 after adding to cart
       setQuantity(1);
-    } catch (error) {
-      // Show error toast
-      toast.error(
-        error instanceof Error ? error.message : "Failed to add item to cart",
-      );
     }
+    // If not successful, the order limit dialog will be shown automatically
   };
 
   // Generate a placeholder image based on category
