@@ -10,7 +10,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ArrowLeft, CreditCard, MapPin, User, Phone, Mail } from "lucide-react";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import {
+  ArrowLeft,
+  CreditCard,
+  MapPin,
+  User,
+  Phone,
+  Mail,
+  Smartphone,
+  Car,
+  Truck,
+} from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
 import { toast } from "sonner";
 
@@ -21,12 +32,68 @@ interface CheckoutScreenProps {
 const CheckoutScreen = ({ onBack }: CheckoutScreenProps) => {
   const { items, getTotalPrice, clearCart } = useCart();
   const [loading, setLoading] = useState(false);
-  const [orderType, setOrderType] = useState<"pickup" | "delivery">("pickup");
+  const [orderType, setOrderType] = useState<
+    "pickup" | "ubereats" | "doordash" | "grubhub"
+  >("pickup");
+  const [contactMethod, setContactMethod] = useState<"email" | "phone">(
+    "email",
+  );
+  const [tipPercentage, setTipPercentage] = useState<number>(18);
+  const [customTip, setCustomTip] = useState<string>("");
+  const [paymentMethod, setPaymentMethod] = useState<"card" | "digital">(
+    "card",
+  );
 
   const subtotal = getTotalPrice();
-  const tax = subtotal * 0.0875; // NJ sales tax
-  const deliveryFee = orderType === "delivery" ? 3.99 : 0;
-  const total = subtotal + tax + deliveryFee;
+  const tax = subtotal * 0.0875; // NJ sales tax (8.75%)
+  const deliveryFee = orderType !== "pickup" ? 3.99 : 0;
+  const tipAmount =
+    tipPercentage === 0
+      ? parseFloat(customTip || "0")
+      : (subtotal * tipPercentage) / 100;
+  const total = subtotal + tax + deliveryFee + tipAmount;
+
+  // Generate 15-minute interval times
+  const generateTimeSlots = (date: Date) => {
+    const slots = [];
+    const now = new Date();
+    const isToday = date.toDateString() === now.toDateString();
+
+    if (isToday) {
+      slots.push({ value: "now", label: "Now" });
+    }
+
+    let startTime = new Date(date);
+    if (isToday) {
+      // Start from next 15-minute interval
+      const minutes = Math.ceil((now.getMinutes() + 30) / 15) * 15; // 30 min minimum prep time
+      startTime.setHours(now.getHours(), minutes, 0, 0);
+      if (minutes >= 60) {
+        startTime.setHours(startTime.getHours() + 1, minutes - 60, 0, 0);
+      }
+    } else {
+      // Tomorrow starts at 6 AM
+      startTime.setHours(6, 0, 0, 0);
+    }
+
+    const endTime = new Date(date);
+    endTime.setHours(21, 0, 0, 0); // Store closes at 9 PM
+
+    while (startTime <= endTime) {
+      const timeString = startTime.toLocaleTimeString([], {
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true,
+      });
+      slots.push({
+        value: startTime.toISOString(),
+        label: timeString,
+      });
+      startTime.setMinutes(startTime.getMinutes() + 15);
+    }
+
+    return slots;
+  };
 
   const handleSubmitOrder = async (e: React.FormEvent) => {
     e.preventDefault();
