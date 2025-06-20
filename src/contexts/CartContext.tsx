@@ -21,12 +21,14 @@ const MAX_ITEM_QUANTITY = 25; // Maximum quantity per item
 
 interface CartContextType {
   items: CartItem[];
-  addItem: (item: Omit<CartItem, "id">) => void;
+  addItem: (item: Omit<CartItem, "id">) => boolean;
   removeItem: (id: string) => void;
-  updateQuantity: (id: string, quantity: number) => void;
+  updateQuantity: (id: string, quantity: number) => boolean;
   clearCart: () => void;
   getTotalItems: () => number;
   getTotalPrice: () => number;
+  onOrderLimitExceeded?: () => void;
+  setOrderLimitCallback: (callback: () => void) => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -48,6 +50,10 @@ export const CartProvider = ({ children }: CartProviderProps) => {
     // Initialize with empty cart to avoid any existing problematic state
     return [];
   });
+
+  const [orderLimitCallback, setOrderLimitCallback] = useState<
+    (() => void) | null
+  >(null);
 
   // Ensure cart is clean on app load
   useEffect(() => {
@@ -98,13 +104,16 @@ export const CartProvider = ({ children }: CartProviderProps) => {
       0,
     );
     if (newTotal > MAX_CART_TOTAL) {
-      throw new Error(
-        "Order Limit Exceeded\n\nOur max online order amount is $150 before taxes & tips. Please call us at (908) 933-0123 to place a larger order.",
-      );
+      // Trigger the order limit dialog
+      if (orderLimitCallback) {
+        orderLimitCallback();
+      }
+      return false;
     }
 
     // Only update state if validation passes
     setItems(potentialItems);
+    return true;
   };
 
   const removeItem = (id: string) => {
@@ -114,6 +123,7 @@ export const CartProvider = ({ children }: CartProviderProps) => {
   const updateQuantity = (id: string, quantity: number) => {
     if (quantity <= 0) {
       removeItem(id);
+      return true;
     } else {
       const clampedQuantity = Math.min(quantity, MAX_ITEM_QUANTITY);
 
@@ -128,13 +138,16 @@ export const CartProvider = ({ children }: CartProviderProps) => {
         0,
       );
       if (newTotal > MAX_CART_TOTAL) {
-        throw new Error(
-          "Order Limit Exceeded\n\nOur max online order amount is $150 before taxes & tips. Please call us at (908) 933-0123 to place a larger order.",
-        );
+        // Trigger the order limit dialog
+        if (orderLimitCallback) {
+          orderLimitCallback();
+        }
+        return false;
       }
 
       // Only update state if validation passes
       setItems(potentialItems);
+      return true;
     }
   };
 
@@ -150,6 +163,10 @@ export const CartProvider = ({ children }: CartProviderProps) => {
     return items.reduce((total, item) => total + item.price * item.quantity, 0);
   };
 
+  const setOrderLimitCallbackFn = (callback: () => void) => {
+    setOrderLimitCallback(() => callback);
+  };
+
   const value: CartContextType = {
     items,
     addItem,
@@ -158,6 +175,7 @@ export const CartProvider = ({ children }: CartProviderProps) => {
     clearCart,
     getTotalItems,
     getTotalPrice,
+    setOrderLimitCallback: setOrderLimitCallbackFn,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
