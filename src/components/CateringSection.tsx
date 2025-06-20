@@ -44,14 +44,31 @@ const CateringSection = () => {
               </div>
             </div>
 
-            <div className="bg-gray-50 p-6 rounded-lg">
-              <p className="text-sm text-gray-600 mb-2">
-                <strong>Minimum Order:</strong> $50
-              </p>
-              <p className="text-sm text-gray-600">
-                <strong>Advance Notice:</strong> Please order at least 48 hours
-                in advance
-              </p>
+            <div className="bg-brand-pink/10 border border-brand-pink/20 p-6 rounded-lg">
+              <h4 className="font-semibold text-brand-brown mb-3">
+                Order Information
+              </h4>
+              <div className="space-y-2">
+                <p className="text-sm text-gray-700 flex items-center">
+                  <span className="w-2 h-2 bg-brand-pink rounded-full mr-3"></span>
+                  <strong>Minimum Order:</strong> $50
+                </p>
+                <p className="text-sm text-gray-700 flex items-center">
+                  <span className="w-2 h-2 bg-brand-pink rounded-full mr-3"></span>
+                  <strong>Advance Notice:</strong> Please order at least 48
+                  hours in advance
+                </p>
+                <p className="text-sm text-gray-700 flex items-center">
+                  <span className="w-2 h-2 bg-brand-pink rounded-full mr-3"></span>
+                  <strong>Contact:</strong> Call us at{" "}
+                  <a
+                    href="tel:908-933-0123"
+                    className="text-brand-pink hover:text-pink-700 font-semibold underline ml-1"
+                  >
+                    (908) 933-0123
+                  </a>
+                </p>
+              </div>
             </div>
           </div>
 
