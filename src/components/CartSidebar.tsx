@@ -14,7 +14,12 @@ interface CartSidebarProps {
 }
 
 const CartSidebar = ({ isOpen, onClose }: CartSidebarProps) => {
-  const { items: cartItems, updateQuantity, getTotalPrice } = useCart();
+  const {
+    items: cartItems,
+    updateQuantity,
+    removeItem,
+    getTotalPrice,
+  } = useCart();
 
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
@@ -111,7 +116,7 @@ const CartSidebar = ({ isOpen, onClose }: CartSidebarProps) => {
                       <Button
                         variant="ghost"
                         size="sm"
-                        onClick={() => updateQuantity(item.id, 0)}
+                        onClick={() => removeItem(item.id)}
                         className="h-8 w-8 p-0 text-gray-400 hover:text-red-500"
                       >
                         <X className="h-4 w-4" />
