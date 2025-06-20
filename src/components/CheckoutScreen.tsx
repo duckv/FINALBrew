@@ -134,20 +134,43 @@ const CheckoutScreen = ({ onBack }: CheckoutScreenProps) => {
               {/* Order Type */}
               <div>
                 <Label className="text-sm font-medium">Order Type</Label>
-                <Select
+                <RadioGroup
                   value={orderType}
-                  onValueChange={(value: "pickup" | "delivery") =>
-                    setOrderType(value)
-                  }
+                  onValueChange={setOrderType}
+                  className="mt-2 space-y-3"
                 >
-                  <SelectTrigger className="mt-1">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="pickup">Pickup</SelectItem>
-                    <SelectItem value="delivery">Delivery ($3.99)</SelectItem>
-                  </SelectContent>
-                </Select>
+                  <div className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-gray-50">
+                    <RadioGroupItem value="pickup" id="pickup" />
+                    <Car className="h-5 w-5 text-gray-600" />
+                    <Label htmlFor="pickup" className="flex-1 cursor-pointer">
+                      Pickup (Free)
+                    </Label>
+                  </div>
+
+                  <div className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-gray-50">
+                    <RadioGroupItem value="ubereats" id="ubereats" />
+                    <Truck className="h-5 w-5 text-black" />
+                    <Label htmlFor="ubereats" className="flex-1 cursor-pointer">
+                      UberEats Delivery (+$3.99)
+                    </Label>
+                  </div>
+
+                  <div className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-gray-50">
+                    <RadioGroupItem value="doordash" id="doordash" />
+                    <Truck className="h-5 w-5 text-red-600" />
+                    <Label htmlFor="doordash" className="flex-1 cursor-pointer">
+                      DoorDash Delivery (+$3.99)
+                    </Label>
+                  </div>
+
+                  <div className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-gray-50">
+                    <RadioGroupItem value="grubhub" id="grubhub" />
+                    <Truck className="h-5 w-5 text-orange-600" />
+                    <Label htmlFor="grubhub" className="flex-1 cursor-pointer">
+                      GrubHub Delivery (+$3.99)
+                    </Label>
+                  </div>
+                </RadioGroup>
               </div>
 
               {/* Customer Information */}
