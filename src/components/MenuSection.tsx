@@ -215,6 +215,8 @@ const MenuSection = () => {
       description: "Flaky, buttery, and baked to golden perfection",
       category: "Pastries",
       hasToastOptions: true,
+      image: "butter-croissant.jpg",
+      subcategory: "pastries",
     },
     {
       title: "Cinnamon Bun",
@@ -222,6 +224,8 @@ const MenuSection = () => {
       description: "Sweet, spiral pastry with cinnamon and sugar",
       category: "Pastries",
       hasToastOptions: true,
+      image: "cinnamon-bun.jpg",
+      subcategory: "pastries",
     },
     {
       title: "Almond Croissant",
@@ -229,6 +233,8 @@ const MenuSection = () => {
       description: "Classic croissant filled with almond paste",
       category: "Pastries",
       hasToastOptions: true,
+      image: "almond-croissant.jpg",
+      subcategory: "pastries",
     },
     {
       title: "Pain au Chocolat",
@@ -236,6 +242,8 @@ const MenuSection = () => {
       description: "Buttery pastry with rich dark chocolate",
       category: "Pastries",
       hasToastOptions: true,
+      image: "pain-au-chocolat.jpg",
+      subcategory: "pastries",
     },
     // French Pastries
     {
