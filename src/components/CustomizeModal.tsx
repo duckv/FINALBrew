@@ -350,7 +350,7 @@ const CustomizeModal = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-md">
+      <DialogContent className="max-w-md mx-auto fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
         <DialogHeader>
           <DialogTitle className="flex items-center justify-between">
             Customize {itemName}
