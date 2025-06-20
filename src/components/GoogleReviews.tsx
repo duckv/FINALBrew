@@ -69,15 +69,27 @@ const GoogleReviews = () => {
   };
 
   useEffect(() => {
-    // Simulate API call delay
-    setTimeout(() => {
-      setReviews(mockReviews);
-      const avgRating =
-        mockReviews.reduce((sum, review) => sum + review.rating, 0) /
-        mockReviews.length;
-      setAverageRating(avgRating);
-      setLoading(false);
-    }, 1000);
+    const loadReviews = async () => {
+      try {
+        const reviewsData = await fetchGoogleReviews();
+        setReviews(reviewsData);
+        const avgRating =
+          reviewsData.reduce((sum, review) => sum + review.rating, 0) /
+          reviewsData.length;
+        setAverageRating(avgRating);
+      } catch (error) {
+        console.error("Failed to load reviews:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadReviews();
+
+    // Auto-refresh reviews every 24 hours
+    const interval = setInterval(loadReviews, 24 * 60 * 60 * 1000);
+
+    return () => clearInterval(interval);
   }, []);
 
   const renderStars = (rating: number) => {
