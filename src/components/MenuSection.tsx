@@ -251,12 +251,16 @@ const MenuSection = () => {
       price: "$3.50",
       description: "Shell-shaped sponge cake with lemon zest",
       category: "Pastries",
+      image: "madeleine.jpg",
+      subcategory: "pastries",
     },
     {
       title: "Macaron",
       price: "$3.25",
       description: "Delicate almond meringue sandwich cookies",
       category: "Pastries",
+      image: "macaron.jpg",
+      subcategory: "pastries",
     },
     {
       title: "Profiterole",
