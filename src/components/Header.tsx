@@ -1,3 +1,11 @@
+/**
+ * Header Component
+ *
+ * The main navigation header for the Bread N' Br☕︎w bakery website.
+ * Features responsive design, mobile menu, shopping cart integration,
+ * and smooth scrolling navigation to page sections.
+ */
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ShoppingCart, Menu, X } from "lucide-react";
@@ -5,11 +13,35 @@ import { cn } from "@/lib/utils";
 import { useCart } from "@/contexts/CartContext";
 import CartSidebar from "./CartSidebar";
 
+/**
+ * Header Component
+ *
+ * Provides:
+ * - Brand logo and tagline
+ * - Navigation menu (desktop and mobile)
+ * - Shopping cart button with item count
+ * - Responsive mobile menu toggle
+ * - Cart sidebar integration
+ */
 const Header = () => {
+  // ========== State Management ==========
+
+  /** Controls mobile menu visibility */
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  /** Controls cart sidebar visibility */
   const [isCartOpen, setIsCartOpen] = useState(false);
+
+  // Get cart functionality from context
   const { getTotalItems } = useCart();
 
+  // ========== Navigation Configuration ==========
+
+  /**
+   * Navigation menu items
+   * Each item corresponds to a section on the homepage
+   * Uses anchor links for smooth scrolling to sections
+   */
   const navItems = [
     { name: "Menu", href: "#menu" },
     { name: "Catering", href: "#catering" },
