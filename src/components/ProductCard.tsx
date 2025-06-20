@@ -158,9 +158,9 @@ const ProductCard = ({
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
+    <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow h-full flex flex-col">
       {/* Product Image */}
-      <div className="h-48 bg-gray-100">
+      <div className="h-48 bg-gray-100 flex-shrink-0">
         {image && subcategory ? (
           <ImageUploader
             category="products"
@@ -181,7 +181,7 @@ const ProductCard = ({
       </div>
 
       {/* Product Info */}
-      <div className="p-6">
+      <div className="p-6 flex flex-col flex-grow">
         <div className="flex justify-between items-start mb-3">
           <h3 className="font-heading text-xl font-semibold text-gray-900">
             {title}
