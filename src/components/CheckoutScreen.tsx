@@ -553,13 +553,6 @@ const CheckoutScreen = ({ onBack }: CheckoutScreenProps) => {
                 <p className="font-medium">${subtotal.toFixed(2)}</p>
               </div>
 
-              {orderType !== "pickup" && (
-                <div className="flex justify-between">
-                  <p className="text-gray-600">Delivery Fee</p>
-                  <p className="font-medium">${deliveryFee.toFixed(2)}</p>
-                </div>
-              )}
-
               <div className="flex justify-between">
                 <p className="text-gray-600">Tax (8.75%)</p>
                 <p className="font-medium">${tax.toFixed(2)}</p>
