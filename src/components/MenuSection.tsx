@@ -12,14 +12,15 @@ const MenuSection = () => {
   const categories = [
     "All",
     "Coffee",
+    "Sweets",
     "Tea",
     "Iced/Frozen",
     "Pastries",
     "Breads",
-    "Sweets",
-    "Seasonal",
+    "Pizza",
     "Breakfast",
     "Lunch",
+    "Seasonal",
   ];
 
   const menuItems = [
