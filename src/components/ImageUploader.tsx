@@ -26,6 +26,8 @@ interface ImageUploaderProps {
   filename: string;
   /** Alt text for accessibility (required) */
   alt: string;
+  /** Optional subcategory (e.g., "coffee", "pastries") */
+  subcategory?: string;
   /** Predefined image configuration type */
   configType?: ImageConfigType;
   /** Custom CSS classes */
