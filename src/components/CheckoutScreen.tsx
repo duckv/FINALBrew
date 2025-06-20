@@ -616,11 +616,36 @@ const CheckoutScreen = ({ onBack }: CheckoutScreenProps) => {
               <h3 className="font-semibold text-gray-900 mb-3">
                 Store Information
               </h3>
-              <div className="text-sm text-gray-600 space-y-1">
-                <p>512 Springfield Ave</p>
-                <p>Berkeley Heights, NJ 07922</p>
-                <p>(908) 933-0123</p>
-                <p>breadnbrew512@gmail.com</p>
+              <div className="text-sm space-y-2">
+                <div className="flex items-center gap-2">
+                  <MapPin className="h-4 w-4 text-gray-400" />
+                  <a
+                    href="https://maps.google.com/?q=512+Springfield+Ave,+Berkeley+Heights,+NJ+07922"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-brand-pink hover:text-pink-700 underline"
+                  >
+                    512 Springfield Ave, Berkeley Heights, NJ 07922
+                  </a>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Phone className="h-4 w-4 text-gray-400" />
+                  <a
+                    href="tel:908-933-0123"
+                    className="text-brand-pink hover:text-pink-700 underline"
+                  >
+                    (908) 933-0123
+                  </a>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Mail className="h-4 w-4 text-gray-400" />
+                  <a
+                    href="mailto:breadnbrew512@gmail.com"
+                    className="text-brand-pink hover:text-pink-700 underline"
+                  >
+                    breadnbrew512@gmail.com
+                  </a>
+                </div>
               </div>
             </div>
           </div>
