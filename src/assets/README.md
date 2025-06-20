@@ -6,10 +6,23 @@ This directory contains all static image assets for the Bread N' Br☕︎w websi
 
 ```
 src/assets/images/
-├── products/          # Product photos (breads, pastries, beverages)
-├── gallery/           # Gallery photos for the photo section
-├── logos/             # Brand logos, favicons, and brand assets
-└── backgrounds/       # Hero images, section backgrounds
+├── products/                    # Product photos organized by category
+│   ├── coffee/                 # Coffee and hot beverages
+│   ├── tea/                    # Tea products
+│   ├── iced-frozen/            # Iced drinks and smoothies
+│   ├── pastries/               # Pastries and French items
+│   ├── breads/                 # Bread products
+│   ├── pizza/                  # Pizza items
+│   ├── breakfast/              # Breakfast items
+│   ├── lunch/                  # Lunch items
+│   └── sweets/                 # Desserts and sweet treats
+├── backgrounds/                 # Background images organized by theme
+│   ├── coffee/                 # Coffee-themed backgrounds
+│   ├── pastries/               # Pastry-themed backgrounds
+│   ├── pizza/                  # Pizza-themed backgrounds
+│   └── general/                # General-purpose backgrounds
+├── gallery/                     # Gallery photos for the photo section
+└── logos/                       # Brand logos, favicons, and brand assets
 ```
 
 ## 🖼️ How to Add Images
