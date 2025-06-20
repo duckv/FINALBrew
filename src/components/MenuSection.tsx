@@ -353,6 +353,8 @@ const MenuSection = () => {
       description:
         "Crispy bacon, scrambled eggs, and melted cheese on a fresh roll",
       category: "Breakfast",
+      image: "bacon-egg-cheese.jpg",
+      subcategory: "breakfast",
     },
     {
       title: "Avocado Toast",
@@ -361,6 +363,8 @@ const MenuSection = () => {
         "Smashed avocado on multigrain bread with sea salt and lemon",
       category: "Breakfast",
       hasCustomizations: true,
+      image: "avocado-toast.jpg",
+      subcategory: "breakfast",
     },
 
     // Lunch
@@ -370,6 +374,8 @@ const MenuSection = () => {
       description:
         "Sliced turkey breast with Swiss cheese, lettuce, and tomato",
       category: "Lunch",
+      image: "turkey-swiss.jpg",
+      subcategory: "lunch",
     },
     {
       title: "Caprese Sandwich",
@@ -377,6 +383,8 @@ const MenuSection = () => {
       description:
         "Fresh mozzarella, tomatoes, basil, and balsamic on ciabatta",
       category: "Lunch",
+      image: "caprese-sandwich.jpg",
+      subcategory: "lunch",
     },
 
     // Sweets
