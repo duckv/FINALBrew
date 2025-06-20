@@ -48,14 +48,14 @@ A professional, responsive website for Bread N' Br☕︎w bakery, featuring an i
 
 ```
 bread-n-brew/
-├── index.html              # Main HTML file
+├── index.html              # Main HTML file (complete website)
 ├── css/
-│   └── styles.css          # Main stylesheet (comprehensive)
+│   └── styles.css          # Complete stylesheet (1,800+ lines)
 ├── js/
-│   └── main.js             # Main JavaScript functionality
-├── README.md               # Project documentation
-└── public/
-    └── robots.txt          # SEO optimization
+│   └── main.js             # Full functionality (1,500+ lines)
+├── robots.txt              # SEO optimization
+├── README.md               # Complete documentation
+└── DEPLOYMENT.md           # Deployment guide
 ```
 
 ## 🚀 Quick Start
