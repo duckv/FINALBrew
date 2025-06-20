@@ -294,6 +294,8 @@ const MenuSection = () => {
       description: "Traditional sourdough with tangy flavor",
       category: "Breads",
       hasSliceOptions: true,
+      image: "sourdough.jpg",
+      subcategory: "breads",
     },
     {
       title: "French Baguette",
@@ -301,6 +303,8 @@ const MenuSection = () => {
       description: "Crispy crust with soft, airy interior",
       category: "Breads",
       hasSliceOptions: true,
+      image: "french-baguette.jpg",
+      subcategory: "breads",
     },
     {
       title: "Multigrain Loaf",
@@ -308,6 +312,8 @@ const MenuSection = () => {
       description: "Nutritious blend of seeds and grains",
       category: "Breads",
       hasSliceOptions: true,
+      image: "multigrain-loaf.jpg",
+      subcategory: "breads",
     },
 
     // Pizza
