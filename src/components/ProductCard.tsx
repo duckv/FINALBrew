@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Minus, Plus, Info } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
+import { toast } from "sonner";
 
 interface ProductCardProps {
   title: string;
@@ -39,6 +40,11 @@ const ProductCard = ({
       image: image || getPlaceholderImage(),
       category: category,
     });
+
+    // Show success toast
+    toast.success(
+      `Added ${quantity} ${title}${quantity > 1 ? "s" : ""} to cart`,
+    );
 
     // Reset quantity to 1 after adding to cart
     setQuantity(1);
