@@ -26,28 +26,35 @@ const ProductCard = ({
   const [quantity, setQuantity] = useState(1);
   const { addItem } = useCart();
 
-  const incrementQuantity = () => setQuantity((prev) => prev + 1);
+  const incrementQuantity = () => setQuantity((prev) => Math.min(prev + 1, 25));
   const decrementQuantity = () => setQuantity((prev) => Math.max(1, prev - 1));
 
   const handleAddToCart = () => {
-    // Parse price string to number (remove $ and convert)
-    const numericPrice = parseFloat(price.replace("$", ""));
+    try {
+      // Parse price string to number (remove $ and convert)
+      const numericPrice = parseFloat(price.replace("$", ""));
 
-    addItem({
-      name: title,
-      price: numericPrice,
-      quantity: quantity,
-      image: image || getPlaceholderImage(),
-      category: category,
-    });
+      addItem({
+        name: title,
+        price: numericPrice,
+        quantity: quantity,
+        image: image || getPlaceholderImage(),
+        category: category,
+      });
 
-    // Show success toast
-    toast.success(
-      `Added ${quantity} ${title}${quantity > 1 ? "s" : ""} to cart`,
-    );
+      // Show success toast
+      toast.success(
+        `Added ${quantity} ${title}${quantity > 1 ? "s" : ""} to cart`,
+      );
 
-    // Reset quantity to 1 after adding to cart
-    setQuantity(1);
+      // Reset quantity to 1 after adding to cart
+      setQuantity(1);
+    } catch (error) {
+      // Show error toast
+      toast.error(
+        error instanceof Error ? error.message : "Failed to add item to cart",
+      );
+    }
   };
 
   // Generate a placeholder image based on category
@@ -135,18 +142,18 @@ const ProductCard = ({
         </div>
 
         {/* Customize and Allergens Buttons */}
-        <div className="flex justify-center space-x-2">
+        <div className="grid grid-cols-2 gap-2">
           <Button
             variant="outline"
             size="sm"
-            className="text-brand-brown border-brand-brown hover:bg-brand-brown hover:text-white"
+            className="text-brand-brown border-brand-brown hover:bg-brand-brown hover:text-white w-full"
           >
             Customize
           </Button>
           <Button
             variant="outline"
             size="sm"
-            className="text-brand-brown border-brand-brown hover:bg-brand-brown hover:text-white"
+            className="text-brand-brown border-brand-brown hover:bg-brand-brown hover:text-white w-full"
           >
             <Info className="h-4 w-4 mr-1" />
             Allergens
