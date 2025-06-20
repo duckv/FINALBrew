@@ -405,8 +405,8 @@ const CheckoutScreen = ({ onBack }: CheckoutScreenProps) => {
                   Add a Tip (Optional)
                 </h3>
 
-                <div className="grid grid-cols-4 gap-2">
-                  {[15, 18, 20, 25].map((percentage) => (
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                  {[15, 18, 20].map((percentage) => (
                     <Button
                       key={percentage}
                       type="button"
@@ -426,9 +426,6 @@ const CheckoutScreen = ({ onBack }: CheckoutScreenProps) => {
                       {percentage}%
                     </Button>
                   ))}
-                </div>
-
-                <div className="flex items-center space-x-2">
                   <Button
                     type="button"
                     variant={tipPercentage === 0 ? "default" : "outline"}
@@ -441,21 +438,28 @@ const CheckoutScreen = ({ onBack }: CheckoutScreenProps) => {
                   >
                     Custom
                   </Button>
-                  {tipPercentage === 0 && (
+                </div>
+
+                {tipPercentage === 0 && (
+                  <div className="flex items-center space-x-2">
+                    <label htmlFor="customTip" className="text-sm font-medium">
+                      Custom tip:
+                    </label>
                     <div className="flex items-center">
                       <span className="mr-1">$</span>
                       <Input
+                        id="customTip"
                         type="number"
                         placeholder="0.00"
                         step="0.01"
                         min="0"
                         value={customTip}
                         onChange={(e) => setCustomTip(e.target.value)}
-                        className="w-20"
+                        className="w-24"
                       />
                     </div>
-                  )}
-                </div>
+                  </div>
+                )}
 
                 <p className="text-sm text-gray-600">
                   Tip: ${tipAmount.toFixed(2)}
