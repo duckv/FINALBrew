@@ -6,7 +6,7 @@ import {
   DialogTitle,
   DialogFooter,
 } from "@/components/ui/dialog";
-import { AlertTriangle } from "lucide-react";
+import { AlertTriangle, X } from "lucide-react";
 
 interface OrderLimitDialogProps {
   isOpen: boolean;
@@ -26,9 +26,19 @@ const OrderLimitDialog = ({ isOpen, onClose }: OrderLimitDialogProps) => {
         onEscapeKeyDown={(e) => e.preventDefault()}
       >
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-3 text-red-700">
-            <AlertTriangle className="h-6 w-6 text-red-600" />
-            Order Limit Exceeded
+          <DialogTitle className="flex items-center justify-between text-red-700">
+            <div className="flex items-center gap-3">
+              <AlertTriangle className="h-6 w-6 text-red-600" />
+              Order Limit Exceeded
+            </div>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={onClose}
+              className="h-8 w-8 p-0 hover:bg-red-100"
+            >
+              <X className="h-4 w-4" />
+            </Button>
           </DialogTitle>
         </DialogHeader>
 
