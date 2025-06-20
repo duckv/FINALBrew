@@ -140,7 +140,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
         setHasError(false);
 
         // Try to load the image dynamically
-        const imageUrl = await loadImage(category, filename);
+        const imageUrl = await loadImage(category, filename, subcategory);
         setImageSrc(imageUrl);
 
         // Call onLoad callback if provided
