@@ -240,38 +240,41 @@ const ProductCard = ({
           </Button>
         </div>
 
-        {/* Add to Cart Button */}
-        <div className="mb-4">
-          <Button
-            onClick={handleAddToCart}
-            className="w-full bg-brand-brown hover:bg-brand-brown-dark text-white"
-            size="sm"
-          >
-            Add to Cart
-          </Button>
-        </div>
+        {/* Button Container with consistent height */}
+        <div className="mt-auto space-y-4">
+          {/* Add to Cart Button */}
+          <div>
+            <Button
+              onClick={handleAddToCart}
+              className="w-full bg-brand-brown hover:bg-brand-brown-dark text-white"
+              size="sm"
+            >
+              Add to Cart
+            </Button>
+          </div>
 
-        {/* Customize and Allergens Buttons */}
-        <div className="grid grid-cols-2 gap-2">
-          <Button
-            variant="outline"
-            size="sm"
-            className="text-brand-brown border-brand-brown hover:bg-brand-brown hover:text-white w-full"
-            onClick={() => setShowCustomizeModal(true)}
-          >
-            Customize
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            className={`border-brand-brown hover:bg-brand-brown hover:text-white w-full ${
-              hasAllergens ? "text-orange-600" : "text-brand-brown"
-            }`}
-            onClick={() => setShowAllergenModal(true)}
-          >
-            <Info className="h-4 w-4 mr-1" />
-            Allergens
-          </Button>
+          {/* Customize and Allergens Buttons */}
+          <div className="grid grid-cols-2 gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              className="text-brand-brown border-brand-brown hover:bg-brand-brown hover:text-white w-full"
+              onClick={() => setShowCustomizeModal(true)}
+            >
+              Customize
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              className={`border-brand-brown hover:bg-brand-brown hover:text-white w-full ${
+                hasAllergens ? "text-orange-600" : "text-brand-brown"
+              }`}
+              onClick={() => setShowAllergenModal(true)}
+            >
+              <Info className="h-4 w-4 mr-1" />
+              Allergens
+            </Button>
+          </div>
         </div>
 
         {/* Modals */}
