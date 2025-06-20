@@ -132,8 +132,10 @@ const AllergenModal = ({
           </Alert>
         </div>
 
-        <div className="flex justify-end">
-          <Button onClick={onClose}>Close</Button>
+        <div className="flex justify-center">
+          <Button onClick={onClose} className="px-8">
+            Got it
+          </Button>
         </div>
       </DialogContent>
     </Dialog>
