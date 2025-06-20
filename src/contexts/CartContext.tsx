@@ -65,7 +65,9 @@ export const CartProvider = ({ children }: CartProviderProps) => {
           0,
         );
         if (newTotal > MAX_CART_TOTAL) {
-          throw new Error(`Cart total cannot exceed $${MAX_CART_TOTAL}`);
+          throw new Error(
+            "Order Limit Exceeded\n\nOur max online order amount is $150 before taxes & tips. Please call us at (908) 933-0123 to place a larger order.",
+          );
         }
 
         return updatedItems;
@@ -88,7 +90,9 @@ export const CartProvider = ({ children }: CartProviderProps) => {
           0,
         );
         if (newTotal > MAX_CART_TOTAL) {
-          throw new Error(`Cart total cannot exceed $${MAX_CART_TOTAL}`);
+          throw new Error(
+            "Order Limit Exceeded\n\nOur max online order amount is $150 before taxes & tips. Please call us at (908) 933-0123 to place a larger order.",
+          );
         }
 
         return newItems;
@@ -116,7 +120,9 @@ export const CartProvider = ({ children }: CartProviderProps) => {
           0,
         );
         if (newTotal > MAX_CART_TOTAL) {
-          throw new Error(`Cart total cannot exceed $${MAX_CART_TOTAL}`);
+          throw new Error(
+            "Order Limit Exceeded\n\nOur max online order amount is $150 before taxes & tips. Please call us at (908) 933-0123 to place a larger order.",
+          );
         }
 
         return updatedItems;
