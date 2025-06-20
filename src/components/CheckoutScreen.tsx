@@ -530,7 +530,7 @@ const CheckoutScreen = ({ onBack }: CheckoutScreenProps) => {
                 <p className="font-medium">${subtotal.toFixed(2)}</p>
               </div>
 
-              {orderType === "delivery" && (
+              {orderType !== "pickup" && (
                 <div className="flex justify-between">
                   <p className="text-gray-600">Delivery Fee</p>
                   <p className="font-medium">${deliveryFee.toFixed(2)}</p>
@@ -541,6 +541,15 @@ const CheckoutScreen = ({ onBack }: CheckoutScreenProps) => {
                 <p className="text-gray-600">Tax (8.75%)</p>
                 <p className="font-medium">${tax.toFixed(2)}</p>
               </div>
+
+              {tipAmount > 0 && (
+                <div className="flex justify-between">
+                  <p className="text-gray-600">
+                    Tip {tipPercentage > 0 ? `(${tipPercentage}%)` : "(Custom)"}
+                  </p>
+                  <p className="font-medium">${tipAmount.toFixed(2)}</p>
+                </div>
+              )}
 
               <div className="flex justify-between text-lg font-bold border-t border-gray-200 pt-2">
                 <p>Total</p>
