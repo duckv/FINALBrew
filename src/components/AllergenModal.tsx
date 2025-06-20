@@ -42,10 +42,10 @@ const AllergenModal = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-md">
+      <DialogContent className="max-w-md mx-auto fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
         <DialogHeader>
           <DialogTitle className="flex items-center justify-between">
-            Allergen Information - {itemName}
+            {itemName}
             <Button variant="ghost" size="sm" onClick={onClose} className="p-1">
               <X className="h-4 w-4" />
             </Button>
