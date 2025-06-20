@@ -263,12 +263,24 @@ const CheckoutScreen = ({ onBack }: CheckoutScreenProps) => {
               </div>
 
               {/* Delivery Address (if delivery selected) */}
-              {orderType === "delivery" && (
+              {orderType !== "pickup" && (
                 <div className="space-y-4">
                   <h3 className="font-semibold text-gray-900 flex items-center">
                     <MapPin className="h-4 w-4 mr-2" />
                     Delivery Address
                   </h3>
+
+                  <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                    <p className="text-sm text-blue-800">
+                      <strong>Note:</strong> You'll be redirected to{" "}
+                      {orderType === "ubereats"
+                        ? "UberEats"
+                        : orderType === "doordash"
+                          ? "DoorDash"
+                          : "GrubHub"}{" "}
+                      to complete delivery and payment.
+                    </p>
+                  </div>
 
                   <div>
                     <Label htmlFor="address">Street Address</Label>
@@ -314,22 +326,43 @@ const CheckoutScreen = ({ onBack }: CheckoutScreenProps) => {
                 </div>
               )}
 
-              {/* Pickup Time / Delivery Time */}
-              <div>
-                <Label htmlFor="requestedTime">
-                  Requested {orderType === "pickup" ? "Pickup" : "Delivery"}{" "}
-                  Time
-                </Label>
-                <Input
-                  id="requestedTime"
-                  type="datetime-local"
-                  required
-                  className="mt-1"
-                  min={new Date(Date.now() + 3600000)
-                    .toISOString()
-                    .slice(0, 16)} // 1 hour from now
-                />
-              </div>
+              {/* Pickup Time Selection */}
+              {orderType === "pickup" && (
+                <div className="space-y-4">
+                  <h3 className="font-semibold text-gray-900">Pickup Time</h3>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="pickupDate">Date</Label>
+                      <Select required>
+                        <SelectTrigger className="mt-1">
+                          <SelectValue placeholder="Select date" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="today">Today</SelectItem>
+                          <SelectItem value="tomorrow">Tomorrow</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    <div>
+                      <Label htmlFor="pickupTime">Time</Label>
+                      <Select required>
+                        <SelectTrigger className="mt-1">
+                          <SelectValue placeholder="Select time" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {generateTimeSlots(new Date()).map((slot) => (
+                            <SelectItem key={slot.value} value={slot.value}>
+                              {slot.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+                </div>
+              )}
 
               {/* Special Instructions */}
               <div>
