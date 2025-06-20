@@ -201,27 +201,65 @@ const CheckoutScreen = ({ onBack }: CheckoutScreenProps) => {
                   </div>
                 </div>
 
+                {/* Contact Method Selection */}
                 <div>
-                  <Label htmlFor="email">Email</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="john@example.com"
-                    required
-                    className="mt-1"
-                  />
+                  <Label className="text-sm font-medium">
+                    Preferred Contact Method
+                  </Label>
+                  <RadioGroup
+                    value={contactMethod}
+                    onValueChange={setContactMethod}
+                    className="mt-2 space-y-3"
+                  >
+                    <div className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-gray-50">
+                      <RadioGroupItem value="email" id="email-contact" />
+                      <Mail className="h-5 w-5 text-gray-600" />
+                      <Label
+                        htmlFor="email-contact"
+                        className="flex-1 cursor-pointer"
+                      >
+                        Email (Recommended)
+                      </Label>
+                    </div>
+
+                    <div className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-gray-50">
+                      <RadioGroupItem value="phone" id="phone-contact" />
+                      <Phone className="h-5 w-5 text-gray-600" />
+                      <Label
+                        htmlFor="phone-contact"
+                        className="flex-1 cursor-pointer"
+                      >
+                        Phone/SMS
+                      </Label>
+                    </div>
+                  </RadioGroup>
                 </div>
 
-                <div>
-                  <Label htmlFor="phone">Phone Number</Label>
-                  <Input
-                    id="phone"
-                    type="tel"
-                    placeholder="(908) 555-0123"
-                    required
-                    className="mt-1"
-                  />
-                </div>
+                {contactMethod === "email" && (
+                  <div>
+                    <Label htmlFor="email">Email Address</Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      placeholder="john@example.com"
+                      required
+                      className="mt-1"
+                    />
+                  </div>
+                )}
+
+                {contactMethod === "phone" && (
+                  <div>
+                    <Label htmlFor="phone">Phone Number</Label>
+                    <Input
+                      id="phone"
+                      type="tel"
+                      placeholder="(908) 555-0123"
+                      required
+                      className="mt-1"
+                    />
+                  </div>
+                )}
               </div>
 
               {/* Delivery Address (if delivery selected) */}
