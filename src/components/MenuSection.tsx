@@ -54,12 +54,16 @@ const MenuSection = () => {
       price: "$3.25",
       description: "Smooth cold-brewed coffee over ice",
       category: "Coffee",
+      image: "iced-coffee.jpg",
+      subcategory: "coffee",
     },
     {
       title: "Cold Brew",
       price: "$3.75",
       description: "Smooth, slow-steeped cold coffee",
       category: "Coffee",
+      image: "cold-brew.jpg",
+      subcategory: "coffee",
     },
     {
       title: "Cappuccino",
