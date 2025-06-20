@@ -11,18 +11,188 @@ const MenuSection = () => {
 
   const categories = [
     "All",
+    "Coffee",
+    "Tea",
+    "Iced/Frozen",
     "Pastries",
     "Breads",
-    "Coffee",
     "Sweets",
-    "Tea",
     "Seasonal",
     "Breakfast",
     "Lunch",
-    "Pizza",
   ];
 
   const menuItems = [
+    // Coffee Drinks
+    {
+      title: "Espresso",
+      price: "$2.75",
+      description: "Rich, concentrated coffee shot",
+      category: "Coffee",
+    },
+    {
+      title: "Americano",
+      price: "$3.50",
+      description: "Rich espresso with hot water",
+      category: "Coffee",
+    },
+    {
+      title: "Brewed Coffee",
+      price: "$2.95",
+      description: "Fresh-brewed daily blend",
+      category: "Coffee",
+    },
+    {
+      title: "Iced Coffee",
+      price: "$3.25",
+      description: "Smooth cold-brewed coffee over ice",
+      category: "Coffee",
+    },
+    {
+      title: "Cold Brew",
+      price: "$3.75",
+      description: "Smooth, slow-steeped cold coffee",
+      category: "Coffee",
+    },
+    {
+      title: "Cappuccino",
+      price: "$4.50",
+      description: "Equal parts espresso, steamed milk, and foam",
+      category: "Coffee",
+    },
+    {
+      title: "Latte",
+      price: "$5.00",
+      description: "Rich espresso with steamed milk - customize with flavors",
+      category: "Coffee",
+    },
+    {
+      title: "Caramel Macchiato",
+      price: "$5.75",
+      description: "Espresso marked with caramel and steamed milk",
+      category: "Coffee",
+    },
+    {
+      title: "Mocha Latte",
+      price: "$5.50",
+      description: "Espresso with chocolate and steamed milk",
+      category: "Coffee",
+    },
+    {
+      title: "White Mocha Latte",
+      price: "$5.75",
+      description: "Espresso with white chocolate and steamed milk",
+      category: "Coffee",
+    },
+    {
+      title: "Matcha Latte",
+      price: "$5.25",
+      description: "Premium matcha green tea with steamed milk",
+      category: "Coffee",
+    },
+    {
+      title: "Chai Latte",
+      price: "$4.75",
+      description: "Spiced black tea with steamed milk",
+      category: "Coffee",
+    },
+    {
+      title: "London Fog",
+      price: "$4.50",
+      description: "Earl Grey tea with vanilla and steamed milk",
+      category: "Coffee",
+    },
+    {
+      title: "Hot Chocolate",
+      price: "$4.25",
+      description: "Rich, creamy hot chocolate with whipped cream",
+      category: "Coffee",
+    },
+
+    // Niche Items
+    {
+      title: "Cortado",
+      price: "$4.25",
+      description: "Equal parts espresso and warm milk",
+      category: "Coffee",
+    },
+    {
+      title: "Flat White",
+      price: "$4.75",
+      description: "Double shot espresso with microfoamed milk",
+      category: "Coffee",
+    },
+
+    // Hot Teas
+    {
+      title: "Green Tea",
+      price: "$3.25",
+      description: "Premium loose-leaf green tea",
+      category: "Tea",
+    },
+    {
+      title: "Earl Grey",
+      price: "$3.25",
+      description: "Classic bergamot-infused black tea",
+      category: "Tea",
+    },
+    {
+      title: "English Breakfast",
+      price: "$3.25",
+      description: "Traditional robust black tea blend",
+      category: "Tea",
+    },
+    {
+      title: "Peppermint Tea",
+      price: "$3.25",
+      description: "Refreshing peppermint herbal tea",
+      category: "Tea",
+    },
+
+    // Iced/Frozen
+    {
+      title: "Fresh Lemonade",
+      price: "$3.75",
+      description: "House-made with fresh lemons",
+      category: "Iced/Frozen",
+    },
+    {
+      title: "Iced Green Tea",
+      price: "$3.50",
+      description: "Refreshing cold-brewed green tea",
+      category: "Iced/Frozen",
+    },
+    {
+      title: "Iced Black Tea",
+      price: "$3.50",
+      description: "Classic iced tea, sweetened or unsweetened",
+      category: "Iced/Frozen",
+    },
+    {
+      title: "Mixed Berry Smoothie",
+      price: "$6.25",
+      description: "Blend of berries, yogurt, and honey",
+      category: "Iced/Frozen",
+    },
+    {
+      title: "Mango Smoothie",
+      price: "$6.25",
+      description: "Fresh mango with yogurt and lime",
+      category: "Iced/Frozen",
+    },
+    {
+      title: "Coffee Frappe",
+      price: "$5.75",
+      description: "Blended iced coffee with whipped cream",
+      category: "Iced/Frozen",
+    },
+    {
+      title: "Mocha Frappe",
+      price: "$6.25",
+      description: "Chocolate coffee frappe with whipped cream",
+      category: "Iced/Frozen",
+    },
+
     // Pastries
     {
       title: "Butter Croissant",
@@ -74,32 +244,6 @@ const MenuSection = () => {
       description: "Nutritious blend of seeds and grains",
       category: "Breads",
       hasSliceOptions: true,
-    },
-
-    // Coffee
-    {
-      title: "Artisan Latte",
-      price: "$5.00",
-      description: "Rich espresso with steamed milk",
-      category: "Coffee",
-    },
-    {
-      title: "Cappuccino",
-      price: "$4.50",
-      description: "Equal parts espresso, steamed milk, and foam",
-      category: "Coffee",
-    },
-    {
-      title: "Americano",
-      price: "$3.50",
-      description: "Rich espresso with hot water",
-      category: "Coffee",
-    },
-    {
-      title: "Mocha",
-      price: "$5.50",
-      description: "Espresso with chocolate and steamed milk",
-      category: "Coffee",
     },
 
     // Sweets
