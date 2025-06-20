@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/sheet";
 import { ShoppingCart, X, Plus, Minus } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
+import OrderThresholdAlert from "./OrderThresholdAlert";
 
 interface CartSidebarProps {
   isOpen: boolean;
