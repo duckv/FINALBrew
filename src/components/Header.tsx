@@ -125,11 +125,12 @@ const Header = () => {
             <Button
               variant="ghost"
               size="sm"
-              className="relative p-2 text-gray-700 hover:text-brand-brown"
+              className="relative p-2 text-gray-700 hover:text-brand-brown flex items-center gap-2"
               onClick={openCart}
               aria-label={`Shopping cart with ${getTotalItems()} items`}
             >
               <ShoppingCart className="h-5 w-5" />
+              <span className="hidden sm:inline font-medium">Cart</span>
               {/* Cart item count badge (only shown when items exist) */}
               {getTotalItems() > 0 && (
                 <span className="absolute -top-1 -right-1 bg-brand-pink text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
