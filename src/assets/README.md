@@ -31,10 +31,23 @@ src/assets/images/
 
 Copy your image files to the appropriate subdirectory:
 
-- **Product photos** → `src/assets/images/products/`
+**Product Photos by Category:**
+
+- **Coffee products** → `src/assets/images/products/coffee/`
+- **Tea products** → `src/assets/images/products/tea/`
+- **Pastries** → `src/assets/images/products/pastries/`
+- **Pizza items** → `src/assets/images/products/pizza/`
+- **Bread products** → `src/assets/images/products/breads/`
+- **Breakfast items** → `src/assets/images/products/breakfast/`
+- **Lunch items** → `src/assets/images/products/lunch/`
+- **Sweets/desserts** → `src/assets/images/products/sweets/`
+- **Iced drinks** → `src/assets/images/products/iced-frozen/`
+
+**Other Categories:**
+
 - **Gallery photos** → `src/assets/images/gallery/`
 - **Logos/branding** → `src/assets/images/logos/`
-- **Background images** → `src/assets/images/backgrounds/`
+- **Background images** → `src/assets/images/backgrounds/[theme]/`
 
 ### 2. Naming Convention
 
