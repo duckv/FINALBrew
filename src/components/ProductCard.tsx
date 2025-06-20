@@ -24,6 +24,7 @@ const ProductCard = ({
   price,
   description,
   image,
+  subcategory,
   hasToastOptions,
   hasSliceOptions,
   hasCustomizations,
