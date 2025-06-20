@@ -6,6 +6,7 @@ import { useCart } from "@/contexts/CartContext";
 import { toast } from "sonner";
 import CustomizeModal from "./CustomizeModal";
 import AllergenModal from "./AllergenModal";
+import ImageUploader from "./ImageUploader";
 
 interface ProductCardProps {
   title: string;
