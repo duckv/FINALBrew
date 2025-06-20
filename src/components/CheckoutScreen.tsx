@@ -139,7 +139,9 @@ const CheckoutScreen = ({ onBack }: CheckoutScreenProps) => {
                 <Label className="text-sm font-medium">Order Type</Label>
                 <RadioGroup
                   value={orderType}
-                  onValueChange={setOrderType}
+                  onValueChange={(value) =>
+                    setOrderType(value as typeof orderType)
+                  }
                   className="mt-2 space-y-3"
                 >
                   <div className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-gray-50">
