@@ -134,6 +134,8 @@ const MenuSection = () => {
       price: "$4.25",
       description: "Rich, creamy hot chocolate with whipped cream",
       category: "Coffee",
+      image: "hot-chocolate.jpg",
+      subcategory: "coffee",
     },
 
     // Niche Items
@@ -142,12 +144,16 @@ const MenuSection = () => {
       price: "$4.25",
       description: "Equal parts espresso and warm milk",
       category: "Coffee",
+      image: "cortado.jpg",
+      subcategory: "coffee",
     },
     {
       title: "Flat White",
       price: "$4.75",
       description: "Double shot espresso with microfoamed milk",
       category: "Coffee",
+      image: "flat-white.jpg",
+      subcategory: "coffee",
     },
 
     // Hot Teas
@@ -156,12 +162,16 @@ const MenuSection = () => {
       price: "$3.25",
       description: "Premium loose-leaf green tea",
       category: "Tea",
+      image: "green-tea.jpg",
+      subcategory: "tea",
     },
     {
       title: "Earl Grey",
       price: "$3.25",
       description: "Classic bergamot-infused black tea",
       category: "Tea",
+      image: "earl-grey.jpg",
+      subcategory: "tea",
     },
     {
       title: "English Breakfast",
