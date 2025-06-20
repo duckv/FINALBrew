@@ -447,14 +447,41 @@ const CheckoutScreen = ({ onBack }: CheckoutScreenProps) => {
                   Payment Method
                 </h3>
 
-                <div className="p-4 border border-gray-200 rounded-lg bg-gray-50">
-                  <p className="text-sm text-gray-600 mb-2">Payment Options:</p>
-                  <ul className="text-sm text-gray-700 space-y-1">
-                    <li>• Pay in store during pickup</li>
-                    <li>• Cash on delivery</li>
-                    <li>• Card payment available at location</li>
-                  </ul>
-                </div>
+                <RadioGroup
+                  value={paymentMethod}
+                  onValueChange={setPaymentMethod}
+                  className="space-y-3"
+                >
+                  <div className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-gray-50">
+                    <RadioGroupItem value="card" id="card-payment" />
+                    <CreditCard className="h-5 w-5 text-gray-600" />
+                    <Label
+                      htmlFor="card-payment"
+                      className="flex-1 cursor-pointer"
+                    >
+                      Debit/Credit Card
+                    </Label>
+                  </div>
+
+                  <div className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-gray-50">
+                    <RadioGroupItem value="digital" id="digital-payment" />
+                    <Smartphone className="h-5 w-5 text-gray-600" />
+                    <Label
+                      htmlFor="digital-payment"
+                      className="flex-1 cursor-pointer"
+                    >
+                      Apple Pay / Google Pay
+                    </Label>
+                  </div>
+                </RadioGroup>
+
+                {orderType === "pickup" && (
+                  <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                    <p className="text-sm text-blue-800">
+                      Payment will be processed when you arrive for pickup.
+                    </p>
+                  </div>
+                )}
               </div>
 
               {/* Submit Button */}
