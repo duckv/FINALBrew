@@ -25,6 +25,7 @@ const ProductCard = ({
   image,
   hasToastOptions,
   hasSliceOptions,
+  hasCustomizations,
   category,
 }: ProductCardProps) => {
   const [quantity, setQuantity] = useState(1);
