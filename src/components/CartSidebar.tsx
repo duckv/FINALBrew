@@ -24,15 +24,15 @@ const CartSidebar = ({ isOpen, onClose, onCheckout }: CartSidebarProps) => {
 
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
-      <SheetContent className="w-full sm:max-w-md">
-        <SheetHeader>
+      <SheetContent className="w-full sm:max-w-md flex flex-col h-full">
+        <SheetHeader className="flex-shrink-0">
           <SheetTitle className="flex items-center gap-2">
             <ShoppingCart className="h-5 w-5" />
             Your Cart ({cartItems.length})
           </SheetTitle>
         </SheetHeader>
 
-        <div className="flex flex-col h-full">
+        <div className="flex flex-col flex-1 min-h-0">
           {cartItems.length === 0 ? (
             <div className="flex-1 flex items-center justify-center">
               <div className="text-center">
@@ -54,8 +54,8 @@ const CartSidebar = ({ isOpen, onClose, onCheckout }: CartSidebarProps) => {
           ) : (
             <>
               {/* Cart Items */}
-              <div className="flex-1 overflow-y-auto py-6">
-                <div className="space-y-4">
+              <div className="flex-1 overflow-y-auto py-4 min-h-0">
+                <div className="space-y-4 px-1">
                   {cartItems.map((item) => (
                     <div
                       key={item.id}
@@ -129,26 +129,33 @@ const CartSidebar = ({ isOpen, onClose, onCheckout }: CartSidebarProps) => {
               </div>
 
               {/* Cart Summary */}
-              <div className="border-t border-gray-200 pt-6 space-y-4">
+              <div className="flex-shrink-0 border-t border-gray-200 pt-4 pb-4 space-y-3">
                 <div className="flex justify-between items-center text-lg font-semibold">
                   <span>Total</span>
                   <span>${getTotalPrice().toFixed(2)}</span>
                 </div>
 
-                <Button
-                  onClick={() => {
-                    onCheckout?.();
-                    onClose();
-                  }}
-                  className="w-full bg-brand-pink hover:bg-pink-600 text-white py-3"
-                  size="lg"
-                >
-                  Proceed to Checkout
-                </Button>
+                <div className="space-y-2">
+                  <Button
+                    onClick={() => {
+                      onCheckout?.();
+                      onClose();
+                    }}
+                    className="w-full bg-brand-pink hover:bg-pink-600 text-white py-3"
+                    size="lg"
+                  >
+                    Proceed to Checkout
+                  </Button>
 
-                <Button variant="outline" className="w-full" onClick={onClose}>
-                  Continue Shopping
-                </Button>
+                  <Button
+                    variant="outline"
+                    className="w-full"
+                    onClick={onClose}
+                    size="default"
+                  >
+                    Continue Shopping
+                  </Button>
+                </div>
               </div>
             </>
           )}
