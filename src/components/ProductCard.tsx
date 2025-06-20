@@ -12,6 +12,7 @@ interface ProductCardProps {
   price: string;
   description?: string;
   image?: string;
+  subcategory?: string;
   hasToastOptions?: boolean;
   hasSliceOptions?: boolean;
   hasCustomizations?: boolean;
