@@ -161,11 +161,23 @@ const ProductCard = ({
     <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
       {/* Product Image */}
       <div className="h-48 bg-gray-100">
-        <img
-          src={image || getPlaceholderImage()}
-          alt={title}
-          className="w-full h-full object-cover"
-        />
+        {image && subcategory ? (
+          <ImageUploader
+            category="products"
+            filename={image}
+            subcategory={subcategory}
+            alt={title}
+            className="w-full h-full object-cover"
+            fallbackSrc={getPlaceholderImage()}
+            showLoadingPlaceholder={true}
+          />
+        ) : (
+          <img
+            src={image || getPlaceholderImage()}
+            alt={title}
+            className="w-full h-full object-cover"
+          />
+        )}
       </div>
 
       {/* Product Info */}
