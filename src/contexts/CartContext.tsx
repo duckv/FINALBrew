@@ -4,6 +4,7 @@ import {
   useContext,
   useState,
   useEffect,
+  useCallback,
   ReactNode,
 } from "react";
 
@@ -163,9 +164,9 @@ export const CartProvider = ({ children }: CartProviderProps) => {
     return items.reduce((total, item) => total + item.price * item.quantity, 0);
   };
 
-  const setOrderLimitCallbackFn = (callback: () => void) => {
+  const setOrderLimitCallbackFn = useCallback((callback: () => void) => {
     setOrderLimitCallback(() => callback);
-  };
+  }, []);
 
   const value: CartContextType = {
     items,
