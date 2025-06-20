@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -7,14 +6,7 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import { ShoppingCart, X, Plus, Minus } from "lucide-react";
-
-interface CartItem {
-  id: string;
-  name: string;
-  price: number;
-  quantity: number;
-  image?: string;
-}
+import { useCart } from "@/contexts/CartContext";
 
 interface CartSidebarProps {
   isOpen: boolean;
@@ -22,24 +14,7 @@ interface CartSidebarProps {
 }
 
 const CartSidebar = ({ isOpen, onClose }: CartSidebarProps) => {
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
-
-  const updateQuantity = (id: string, newQuantity: number) => {
-    if (newQuantity === 0) {
-      setCartItems((items) => items.filter((item) => item.id !== id));
-    } else {
-      setCartItems((items) =>
-        items.map((item) =>
-          item.id === id ? { ...item, quantity: newQuantity } : item,
-        ),
-      );
-    }
-  };
-
-  const total = cartItems.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0,
-  );
+  const { items: cartItems, updateQuantity, getTotalPrice } = useCart();
 
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
@@ -150,7 +125,7 @@ const CartSidebar = ({ isOpen, onClose }: CartSidebarProps) => {
               <div className="border-t border-gray-200 pt-6 space-y-4">
                 <div className="flex justify-between items-center text-lg font-semibold">
                   <span>Total</span>
-                  <span>${total.toFixed(2)}</span>
+                  <span>${getTotalPrice().toFixed(2)}</span>
                 </div>
 
                 <Button
