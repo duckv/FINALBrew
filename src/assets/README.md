@@ -34,7 +34,7 @@ Copy your image files to the appropriate subdirectory:
 **Product Photos by Category:**
 
 - **Coffee products** → `src/assets/images/products/coffee/`
-- **Tea products** → `src/assets/images/products/tea/`
+- **Tea products** �� `src/assets/images/products/tea/`
 - **Pastries** → `src/assets/images/products/pastries/`
 - **Pizza items** → `src/assets/images/products/pizza/`
 - **Bread products** → `src/assets/images/products/breads/`
@@ -68,10 +68,26 @@ Use **kebab-case** for file names:
 
 ### 3. Using Images in Components
 
-#### Method 1: Direct Import (Recommended for Static Images)
+#### Method 1: Using ImageUploader Component (Recommended)
 
 ```tsx
-import chocolateCroissant from "@/assets/images/products/chocolate-croissant.jpg";
+import ImageUploader from "@/components/ImageUploader";
+
+const ProductCard = () => (
+  <ImageUploader
+    category="products"
+    filename="chocolate-croissant.jpg"
+    alt="Freshly baked chocolate croissant with flaky layers"
+    subcategory="pastries"
+    configType="product"
+  />
+);
+```
+
+#### Method 2: Direct Import (For Static Images)
+
+```tsx
+import chocolateCroissant from "@/assets/images/products/pastries/chocolate-croissant.jpg";
 
 const ProductCard = () => (
   <img
@@ -82,21 +98,21 @@ const ProductCard = () => (
 );
 ```
 
-#### Method 2: Using Image Helper Utility
+#### Method 3: Using Image Helper Utility
 
 ```tsx
 import { getImagePath } from "@/utils/imageHelpers";
 
 const ProductCard = ({ imageName }: { imageName: string }) => (
   <img
-    src={getImagePath("products", imageName)}
+    src={getImagePath("products", imageName, "pastries")}
     alt="Product image"
     className="w-full h-48 object-cover rounded-lg"
   />
 );
 ```
 
-#### Method 3: Dynamic Image Loading
+#### Method 4: Dynamic Image Loading
 
 ```tsx
 import { loadImage } from "@/utils/imageHelpers";
@@ -105,7 +121,7 @@ const GalleryImage = ({ imageName }: { imageName: string }) => {
   const [imageSrc, setImageSrc] = useState<string>("");
 
   useEffect(() => {
-    loadImage("gallery", imageName).then(setImageSrc);
+    loadImage("products", imageName, "coffee").then(setImageSrc);
   }, [imageName]);
 
   return imageSrc ? (
