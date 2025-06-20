@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import MenuSection from "@/components/MenuSection";
@@ -10,10 +10,21 @@ import Footer from "@/components/Footer";
 import FloatingCart from "@/components/FloatingCart";
 import CartSidebar from "@/components/CartSidebar";
 import CheckoutScreen from "@/components/CheckoutScreen";
+import OrderLimitDialog from "@/components/OrderLimitDialog";
+import { useCart } from "@/contexts/CartContext";
 
 const Index = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [showCheckout, setShowCheckout] = useState(false);
+  const [showOrderLimitDialog, setShowOrderLimitDialog] = useState(false);
+  const { setOrderLimitCallback } = useCart();
+
+  // Set up the order limit callback
+  useEffect(() => {
+    setOrderLimitCallback(() => {
+      setShowOrderLimitDialog(true);
+    });
+  }, [setOrderLimitCallback]);
 
   const handleCheckout = () => {
     setShowCheckout(true);
@@ -42,6 +53,10 @@ const Index = () => {
         isOpen={isCartOpen}
         onClose={() => setIsCartOpen(false)}
         onCheckout={handleCheckout}
+      />
+      <OrderLimitDialog
+        isOpen={showOrderLimitDialog}
+        onClose={() => setShowOrderLimitDialog(false)}
       />
     </div>
   );
