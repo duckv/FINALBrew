@@ -43,7 +43,7 @@ const ContactSection = () => {
                 <div>
                   <h4 className="font-semibold text-gray-900 mb-1">Phone</h4>
                   <a
-                    href="tel:(908)933-0123"
+                    href="tel:908-933-0123"
                     className="text-brand-pink hover:text-pink-700 font-medium underline"
                   >
                     (908) 933-0123
