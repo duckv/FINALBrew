@@ -149,6 +149,14 @@ const CateringSection = () => {
 
               <p className="text-xs text-gray-500 text-center">
                 We'll get back to you within 24 hours with a detailed quote.
+                <br />
+                Or email us directly at{" "}
+                <a
+                  href="mailto:breadnbrew512@gmail.com"
+                  className="text-brand-pink hover:underline"
+                >
+                  breadnbrew512@gmail.com
+                </a>
               </p>
             </form>
           </div>

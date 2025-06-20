@@ -39,7 +39,7 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <h4 className="font-semibold text-gray-900 mb-1">Phone</h4>
-                  <p className="text-gray-600">(555) 123-4567</p>
+                  <p className="text-gray-600">(908) 933-0123</p>
                   <p className="text-sm text-gray-500">
                     Call for orders or inquiries
                   </p>
@@ -53,7 +53,7 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <h4 className="font-semibold text-gray-900 mb-1">Email</h4>
-                  <p className="text-gray-600">hello@breadnbrew.com</p>
+                  <p className="text-gray-600">breadnbrew512@gmail.com</p>
                   <p className="text-sm text-gray-500">
                     We'll respond within 24 hours
                   </p>
@@ -68,11 +68,9 @@ const ContactSection = () => {
                 <div>
                   <h4 className="font-semibold text-gray-900 mb-1">Address</h4>
                   <p className="text-gray-600">
-                    123 Artisan Street
+                    512 Springfield Ave
                     <br />
-                    Downtown District
-                    <br />
-                    City, State 12345
+                    Berkeley Heights, NJ 07922
                   </p>
                 </div>
               </div>
