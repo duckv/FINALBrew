@@ -189,6 +189,19 @@ const ProductCard = ({
           </div>
         )}
 
+        {hasCustomizations && (
+          <div className="mb-4">
+            {title.toLowerCase().includes("classic cheese pizza") && (
+              <p className="text-sm text-gray-500 mb-2">
+                Add pepperoni for $1.50
+              </p>
+            )}
+            {title.toLowerCase().includes("avocado toast") && (
+              <p className="text-sm text-gray-500 mb-2">Add bacon for $2.00</p>
+            )}
+          </div>
+        )}
+
         {/* Quantity Controls */}
         <div className="flex items-center justify-center space-x-3 mb-4">
           <Button
