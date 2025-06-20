@@ -9,9 +9,23 @@ import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import FloatingCart from "@/components/FloatingCart";
 import CartSidebar from "@/components/CartSidebar";
+import CheckoutScreen from "@/components/CheckoutScreen";
 
 const Index = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [showCheckout, setShowCheckout] = useState(false);
+
+  const handleCheckout = () => {
+    setShowCheckout(true);
+  };
+
+  const handleBackFromCheckout = () => {
+    setShowCheckout(false);
+  };
+
+  if (showCheckout) {
+    return <CheckoutScreen onBack={handleBackFromCheckout} />;
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -24,7 +38,11 @@ const Index = () => {
       <ContactSection />
       <Footer />
       <FloatingCart onClick={() => setIsCartOpen(true)} />
-      <CartSidebar isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+      <CartSidebar
+        isOpen={isCartOpen}
+        onClose={() => setIsCartOpen(false)}
+        onCheckout={handleCheckout}
+      />
     </div>
   );
 };
