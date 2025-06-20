@@ -2,9 +2,11 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ShoppingCart, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import CartSidebar from "./CartSidebar";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
   const navItems = [
     { name: "Menu", href: "#menu" },
@@ -43,6 +45,7 @@ const Header = () => {
               variant="ghost"
               size="sm"
               className="relative p-2 text-gray-700 hover:text-brand-brown"
+              onClick={() => setIsCartOpen(true)}
             >
               <ShoppingCart className="h-5 w-5" />
               <span className="absolute -top-1 -right-1 bg-brand-pink text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
@@ -100,6 +103,9 @@ const Header = () => {
           </nav>
         </div>
       </div>
+
+      {/* Cart Sidebar */}
+      <CartSidebar isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
     </header>
   );
 };
