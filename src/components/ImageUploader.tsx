@@ -162,7 +162,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
     };
 
     loadImageAsync();
-  }, [category, filename, fallbackSrc, onLoad, onError]);
+  }, [category, filename, subcategory, fallbackSrc, onLoad, onError]);
 
   /**
    * Handle image load event
