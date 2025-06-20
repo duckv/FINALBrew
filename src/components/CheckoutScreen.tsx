@@ -376,6 +376,70 @@ const CheckoutScreen = ({ onBack }: CheckoutScreenProps) => {
                 />
               </div>
 
+              {/* Tipping */}
+              <div className="space-y-4">
+                <h3 className="font-semibold text-gray-900">
+                  Add a Tip (Optional)
+                </h3>
+
+                <div className="grid grid-cols-4 gap-2">
+                  {[15, 18, 20, 25].map((percentage) => (
+                    <Button
+                      key={percentage}
+                      type="button"
+                      variant={
+                        tipPercentage === percentage ? "default" : "outline"
+                      }
+                      className={`${
+                        tipPercentage === percentage
+                          ? "bg-brand-pink hover:bg-pink-600 text-white"
+                          : "hover:bg-gray-50"
+                      }`}
+                      onClick={() => {
+                        setTipPercentage(percentage);
+                        setCustomTip("");
+                      }}
+                    >
+                      {percentage}%
+                    </Button>
+                  ))}
+                </div>
+
+                <div className="flex items-center space-x-2">
+                  <Button
+                    type="button"
+                    variant={tipPercentage === 0 ? "default" : "outline"}
+                    className={`${
+                      tipPercentage === 0
+                        ? "bg-brand-pink hover:bg-pink-600 text-white"
+                        : "hover:bg-gray-50"
+                    }`}
+                    onClick={() => setTipPercentage(0)}
+                  >
+                    Custom
+                  </Button>
+                  {tipPercentage === 0 && (
+                    <div className="flex items-center">
+                      <span className="mr-1">$</span>
+                      <Input
+                        type="number"
+                        placeholder="0.00"
+                        step="0.01"
+                        min="0"
+                        value={customTip}
+                        onChange={(e) => setCustomTip(e.target.value)}
+                        className="w-20"
+                      />
+                    </div>
+                  )}
+                </div>
+
+                <p className="text-sm text-gray-600">
+                  Tip: ${tipAmount.toFixed(2)}
+                  {tipPercentage > 0 && ` (${tipPercentage}%)`}
+                </p>
+              </div>
+
               {/* Payment Method */}
               <div className="space-y-4">
                 <h3 className="font-semibold text-gray-900 flex items-center">
