@@ -1,5 +1,11 @@
 import * as React from "react";
-import { createContext, useContext, useState, ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from "react";
 
 export interface CartItem {
   id: string;
@@ -42,6 +48,17 @@ export const CartProvider = ({ children }: CartProviderProps) => {
     // Initialize with empty cart to avoid any existing problematic state
     return [];
   });
+
+  // Ensure cart is clean on app load
+  useEffect(() => {
+    const currentTotal = items.reduce(
+      (total, item) => total + item.price * item.quantity,
+      0,
+    );
+    if (currentTotal > MAX_CART_TOTAL) {
+      setItems([]);
+    }
+  }, []);
 
   const addItem = (newItem: Omit<CartItem, "id">) => {
     // Pre-calculate what the new cart would look like
