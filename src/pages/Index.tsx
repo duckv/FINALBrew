@@ -24,7 +24,7 @@ const Index = () => {
     setOrderLimitCallback(() => {
       setShowOrderLimitDialog(true);
     });
-  }, [setOrderLimitCallback]);
+  }, []); // Empty dependency array since setOrderLimitCallback is now stable
 
   const handleCheckout = () => {
     setShowCheckout(true);
