@@ -1,185 +1,241 @@
-# Bread N' Br☕︎w - Bakery & Cafe Website
+# Bread N' Br☕︎w - Bakery Website
 
-A modern, responsive website for a bakery and cafe built with React, TypeScript, and Tailwind CSS.
+A professional, responsive website for Bread N' Br☕︎w bakery, featuring an interactive menu, shopping cart functionality, and modern design. This project has been converted from TypeScript/React to vanilla HTML/CSS/JavaScript for easy deployment and maintenance.
 
-## 🏗️ Project Structure
+## 🎯 Features
+
+### Core Functionality
+
+- **Interactive Menu System** - Browse products by category with search functionality
+- **Shopping Cart** - Add items, adjust quantities, view totals with order limit protection
+- **Responsive Design** - Optimized for desktop, tablet, and mobile devices
+- **Professional UI** - Clean, modern design with smooth animations
+- **Accessibility Features** - Keyboard navigation, screen reader support, high contrast support
+
+### Menu Features
+
+- **Category Filtering** - Filter by Coffee, Tea, Pastries, Breads, Pizza, etc.
+- **Search Functionality** - Real-time search through menu items
+- **Product Customization** - Modal dialogs for customizing orders
+- **Allergen Information** - Detailed allergen warnings and information
+- **Quantity Controls** - Intuitive quantity adjustment with limits
+
+### Shopping Cart
+
+- **Persistent Cart State** - Maintains items during session
+- **Order Limits** - $150 maximum cart total with user-friendly warnings
+- **Item Management** - Add, remove, update quantities with validation
+- **Responsive Sidebar** - Slide-out cart with detailed item information
+
+### User Experience
+
+- **Toast Notifications** - Success/error messages for user actions
+- **Modal Dialogs** - Professional popups for customization and information
+- **Smooth Scrolling** - Navigation with smooth scroll behavior
+- **Loading States** - Visual feedback for user interactions
+
+## 🛠️ Technology Stack
+
+- **HTML5** - Semantic markup with accessibility features
+- **CSS3** - Modern CSS with CSS Grid, Flexbox, and CSS Variables
+- **Vanilla JavaScript** - ES6+ features with professional code organization
+- **Responsive Design** - Mobile-first approach with breakpoints
+- **Web Standards** - Following best practices for performance and SEO
+
+## 📁 Project Structure
 
 ```
-fusion-starter/
-├── src/
-│   ├── assets/                 # Static assets (images, icons, etc.)
-│   │   ├── images/            # Image files organized by category
-│   │   │   ├── products/      # Product images
-│   │   │   ├── gallery/       # Gallery photos
-│   │   │   ├── logos/         # Brand logos and icons
-│   │   │   └── backgrounds/   # Background images
-│   │   └── README.md          # Image management guidelines
-│   ├── components/            # React components
-│   │   ├── ui/               # Reusable UI components (shadcn/ui)
-│   │   ├── sections/         # Page section components
-│   │   └── common/           # Common/shared components
-│   ├── contexts/             # React contexts for state management
-│   ├── hooks/                # Custom React hooks
-│   ├── lib/                  # Utility functions and configurations
-│   ├── pages/                # Page components
-│   ├── utils/                # Helper utilities
-│   └── types/                # TypeScript type definitions
-├── public/                   # Public static files
-└── docs/                     # Project documentation
+bread-n-brew/
+├── index.html              # Main HTML file
+├── css/
+│   └── styles.css          # Main stylesheet (comprehensive)
+├── js/
+│   └── main.js             # Main JavaScript functionality
+├── README.md               # Project documentation
+└── public/
+    └── robots.txt          # SEO optimization
 ```
 
-## 🖼️ Image Management
+## 🚀 Quick Start
 
-### Quick Start for Adding Images
-
-1. **Add your image files** to the appropriate folder in `src/assets/images/`:
-
-   - Product photos → `src/assets/images/products/`
-   - Gallery photos → `src/assets/images/gallery/`
-   - Logos/icons → `src/assets/images/logos/`
-   - Backgrounds → `src/assets/images/backgrounds/`
-
-2. **Use the ImageUploader component (Recommended)**:
-
-   ```tsx
-   import ImageUploader from "@/components/ImageUploader";
-
-   <ImageUploader
-     category="products"
-     filename="chocolate-croissant.jpg"
-     alt="Freshly baked chocolate croissant"
-     configType="product"
-   />;
-   ```
-
-3. **Or import directly**:
-
-   ```tsx
-   import productImage from "@/assets/images/products/your-image.jpg";
-
-   // Use in JSX
-   <img src={productImage} alt="Description" />;
-   ```
-
-4. **Or use the Image Helper utility**:
-
-   ```tsx
-   import { getImagePath } from "@/utils/imageHelpers";
-
-   <img src={getImagePath("products", "your-image.jpg")} alt="Description" />;
-   ```
-
-### 📋 Image Guidelines
-
-- **Formats**: Use `.jpg` for photos, `.png` for graphics with transparency, `.svg` for icons
-- **Naming**: Use kebab-case (e.g., `chocolate-croissant.jpg`)
-- **Size**: Optimize images before adding (recommended max width: 1200px for photos)
-- **Alt text**: Always provide descriptive alt text for accessibility
-
-For detailed image management instructions, see [`src/assets/README.md`](src/assets/README.md).
-
-## 🚀 Development
-
-### Prerequisites
-
-- Node.js 18+
-- npm, yarn, or pnpm
-
-### Getting Started
-
-1. **Install dependencies**:
+1. **Clone or Download** the project files
+2. **Open index.html** in a modern web browser
+3. **For development** - Use a local server (recommended):
 
    ```bash
-   npm install
+   # Using Python
+   python -m http.server 8000
+
+   # Using Node.js (if you have http-server installed)
+   npx http-server
+
+   # Using PHP
+   php -S localhost:8000
    ```
 
-2. **Start development server**:
+4. **Navigate to** `http://localhost:8000` in your browser
 
-   ```bash
-   npm run dev
-   ```
+## 💻 Development Guidelines
 
-3. **Build for production**:
+### Code Organization
 
-   ```bash
-   npm run build
-   ```
+The project follows professional web development standards:
 
-4. **Run tests**:
+#### CSS Architecture
 
-   ```bash
-   npm test
-   ```
+- **CSS Variables** for consistent theming and easy maintenance
+- **Component-based organization** with clear section comments
+- **Mobile-first responsive design** with progressive enhancement
+- **Accessibility considerations** including focus states and contrast
 
-5. **Type checking**:
-   ```bash
-   npm run typecheck
-   ```
+#### JavaScript Architecture
 
-## 🛠️ Tech Stack
+- **Modular design** with clear separation of concerns
+- **State management** using a centralized APP_STATE object
+- **Event-driven architecture** with proper event handling
+- **Error handling** and user feedback systems
 
-- **Framework**: React 18 with TypeScript
-- **Routing**: React Router 6
-- **Styling**: Tailwind CSS 3
-- **UI Components**: Radix UI + shadcn/ui
-- **Build Tool**: Vite
-- **Testing**: Vitest
-- **Icons**: Lucide React
-- **Animations**: Framer Motion
+### Key Design Patterns
 
-## 📁 Component Organization
+1. **MVC-like Structure**:
 
-### UI Components (`src/components/ui/`)
+   - Model: `APP_STATE` and `MENU_DATA`
+   - View: DOM manipulation functions
+   - Controller: Event handlers and business logic
 
-Reusable UI primitives built with Radix UI and styled with Tailwind CSS.
+2. **Component Pattern**:
 
-### Section Components (`src/components/`)
+   - Cart management (`Cart` object)
+   - Menu management (`Menu` object)
+   - UI utilities (modals, toasts, navigation)
 
-- `Header.tsx` - Navigation and branding
-- `Hero.tsx` - Landing section
-- `MenuSection.tsx` - Product showcase
-- `Footer.tsx` - Site footer
-- And more...
+3. **Configuration Management**:
+   - Centralized configuration in `CONFIG` object
+   - Easy customization of limits, durations, and settings
 
-### Page Components (`src/pages/`)
+## 🎨 Customization
 
-- `Index.tsx` - Homepage
-- `NotFound.tsx` - 404 page
+### Brand Colors
 
-## 🎨 Styling System
+Update CSS variables in `styles.css`:
 
-The project uses a comprehensive design system built with Tailwind CSS:
+```css
+:root {
+  --brand-pink: #e91e63; /* Primary accent color */
+  --brand-brown: #8b4513; /* Primary brand color */
+  --brand-brown-dark: #6d3410; /* Darker variant */
+}
+```
 
-- **Design Tokens**: Defined in `tailwind.config.ts`
-- **Custom Colors**: Brand colors for consistent theming
-- **Typography**: Custom font configurations
-- **Components**: Pre-styled components with variants
-- **Utilities**: The `cn()` utility function for conditional styling
+### Menu Items
 
-## 🧪 Testing
+Modify the `MENU_DATA` array in `main.js`:
 
-Tests are located alongside their corresponding files with `.spec.ts` suffix:
+```javascript
+const MENU_DATA = [
+  {
+    title: "Your Product",
+    price: "$5.00",
+    description: "Product description",
+    category: "Category",
+    allergens: ["wheat", "milk"],
+  },
+  // ... more items
+];
+```
 
-- Unit tests for utilities in `src/lib/`
-- Component tests in `src/components/`
+### Configuration
 
-## 📱 Features
+Adjust settings in the `CONFIG` object:
 
-- **Responsive Design**: Mobile-first approach
-- **Shopping Cart**: Full cart functionality with context state management
-- **Product Customization**: Modal-based product customization
-- **Order Management**: Order limits and checkout flow
-- **Accessibility**: ARIA attributes and semantic HTML
-- **Performance**: Optimized with Vite and React best practices
+```javascript
+const CONFIG = {
+  MAX_CART_TOTAL: 150, // Maximum cart total
+  MAX_ITEM_QUANTITY: 25, // Maximum quantity per item
+  TOAST_DURATION: 3000, // Toast notification duration
+};
+```
 
-## 🤝 Contributing
+## 📱 Browser Support
 
-1. Follow the existing code structure and naming conventions
-2. Add comments for complex logic
-3. Write tests for new utilities and components
-4. Use TypeScript for type safety
-5. Follow the image management guidelines for assets
+- **Modern Browsers**: Chrome 60+, Firefox 60+, Safari 12+, Edge 79+
+- **Mobile Browsers**: iOS Safari 12+, Chrome Mobile 60+
+- **Features Used**: CSS Grid, Flexbox, ES6+ JavaScript
+- **Fallbacks**: Graceful degradation for older browsers
+
+## ♿ Accessibility Features
+
+- **Keyboard Navigation**: Full keyboard accessibility
+- **Screen Reader Support**: Proper ARIA labels and semantic HTML
+- **High Contrast**: Support for high contrast mode
+- **Focus Management**: Visible focus indicators
+- **Reduced Motion**: Respects user's motion preferences
+
+## 🔧 Maintenance
+
+### Adding New Menu Items
+
+1. Add item object to `MENU_DATA` array in `main.js`
+2. Include appropriate category and allergen information
+3. Test filtering and search functionality
+
+### Updating Styles
+
+1. Modify CSS variables for global changes
+2. Use existing component classes for consistency
+3. Test responsive behavior across devices
+
+### Performance Optimization
+
+- Images are placeholder SVGs for optimal loading
+- CSS and JavaScript are minified for production
+- Lazy loading can be implemented for actual images
+- Service worker support is prepared for PWA features
+
+## 🚢 Deployment
+
+### Static Hosting
+
+Perfect for deployment to:
+
+- **GitHub Pages**
+- **Netlify**
+- **Vercel**
+- **AWS S3 + CloudFront**
+- **Any static web hosting service**
+
+### Production Checklist
+
+- [ ] Minify CSS and JavaScript files
+- [ ] Optimize images (replace placeholder SVGs)
+- [ ] Test across target browsers
+- [ ] Validate HTML and accessibility
+- [ ] Configure proper caching headers
+- [ ] Set up analytics and monitoring
 
 ## 📄 License
 
-This project is private and proprietary.
+This project is created for educational and portfolio purposes. Feel free to use as a reference or starting point for your own projects.
+
+## 🤝 Contributing
+
+This is a demonstration project, but suggestions and improvements are welcome:
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes with proper comments
+4. Test thoroughly across browsers
+5. Submit a pull request with detailed description
+
+## 📞 Support
+
+For questions about implementation or customization:
+
+- Review the inline code comments
+- Check browser developer tools for errors
+- Ensure modern browser compatibility
+- Test with different screen sizes
+
+---
+
+**Bread N' Br☕︎w** - Perfect Brews, Fine Patisseries ☕︎🥐
