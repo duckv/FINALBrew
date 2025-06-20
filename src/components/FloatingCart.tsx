@@ -14,12 +14,12 @@ const FloatingCart = ({ onClick }: FloatingCartProps) => {
   return (
     <Button
       onClick={onClick}
-      className="fixed bottom-6 right-6 h-14 w-14 rounded-full bg-brand-pink hover:bg-pink-600 text-white shadow-lg z-40"
+      className="fixed bottom-6 right-6 h-16 w-16 rounded-full bg-brand-pink hover:bg-pink-600 text-white shadow-xl z-40 transform hover:scale-105 transition-transform"
       size="lg"
     >
-      <ShoppingCart className="h-6 w-6" />
+      <ShoppingCart className="h-7 w-7" />
       {getTotalItems() > 0 && (
-        <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-6 w-6 flex items-center justify-center font-bold">
+        <span className="absolute -top-2 -right-2 bg-red-500 text-white text-sm rounded-full h-7 w-7 flex items-center justify-center font-bold border-2 border-white">
           {getTotalItems()}
         </span>
       )}
