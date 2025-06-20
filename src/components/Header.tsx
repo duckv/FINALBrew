@@ -23,9 +23,14 @@ const Header = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center">
-            <h1 className="font-heading text-2xl font-bold text-brand-pink">
-              Bread N' Brew
-            </h1>
+            <div>
+              <h1 className="font-heading text-2xl font-bold text-brand-pink">
+                Bread N' Br☕︎w
+              </h1>
+              <p className="text-sm text-gray-600 italic">
+                Artisan Breads, Perfect Brews, & Fine Patisseries
+              </p>
+            </div>
           </div>
 
           {/* Desktop Navigation */}
@@ -58,7 +63,7 @@ const Header = () => {
             </Button>
 
             <Button
-              className="hidden md:inline-flex bg-brand-brown hover:bg-brand-brown-dark text-white"
+              className="hidden md:inline-flex bg-brand-pink hover:bg-pink-600 text-white"
               size="sm"
             >
               Order Online
@@ -99,7 +104,7 @@ const Header = () => {
               </a>
             ))}
             <Button
-              className="bg-brand-brown hover:bg-brand-brown-dark text-white w-full mt-2"
+              className="bg-brand-pink hover:bg-pink-600 text-white w-full mt-2"
               size="sm"
             >
               Order Online
