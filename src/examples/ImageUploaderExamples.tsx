@@ -27,18 +27,21 @@ const ImageUploaderExamples: React.FC = () => {
             category="products"
             filename="chocolate-croissant.jpg"
             alt="Freshly baked chocolate croissant with flaky layers"
+            subcategory="pastries"
             configType="product"
           />
           <ImageUploader
             category="products"
             filename="fresh-bread-loaf.jpg"
             alt="Artisan sourdough bread loaf with crispy crust"
+            subcategory="breads"
             configType="product"
           />
           <ImageUploader
             category="products"
             filename="cappuccino-cup.jpg"
             alt="Perfect cappuccino with latte art"
+            subcategory="coffee"
             configType="product"
           />
         </div>
@@ -176,10 +179,10 @@ const ImageUploaderExamples: React.FC = () => {
             {`import productImage from "@/assets/images/products/croissant.jpg";
 
 // Then use in JSX:
-<img 
-  src={productImage} 
-  alt="Product description" 
-  className="w-full h-48 object-cover rounded-lg" 
+<img
+  src={productImage}
+  alt="Product description"
+  className="w-full h-48 object-cover rounded-lg"
 />`}
           </pre>
         </div>
