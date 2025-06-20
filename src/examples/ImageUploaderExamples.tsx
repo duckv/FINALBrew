@@ -154,6 +154,7 @@ const ImageUploaderExamples: React.FC = () => {
   category="products"
   filename="chocolate-croissant.jpg"
   alt="Freshly baked chocolate croissant"
+  subcategory="pastries"
   configType="product"
 />`}
           </pre>
@@ -169,6 +170,29 @@ const ImageUploaderExamples: React.FC = () => {
   className="rounded-xl shadow-lg hover:shadow-xl transition-shadow"
   onLoad={() => console.log('Image loaded')}
   fallbackSrc="/images/placeholder.jpg"
+/>`}
+          </pre>
+        </div>
+
+        <div className="bg-gray-100 p-4 rounded-lg mt-4">
+          <h3 className="font-semibold mb-2">Using Subcategories:</h3>
+          <pre className="text-sm overflow-x-auto">
+            {`// Coffee product
+<ImageUploader
+  category="products"
+  filename="latte-art.jpg"
+  alt="Beautiful latte art"
+  subcategory="coffee"
+  configType="product"
+/>
+
+// Pizza product
+<ImageUploader
+  category="products"
+  filename="margherita-pizza.jpg"
+  alt="Classic margherita pizza"
+  subcategory="pizza"
+  configType="product"
 />`}
           </pre>
         </div>
