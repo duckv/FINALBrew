@@ -511,15 +511,48 @@ const CheckoutScreen = ({ onBack }: CheckoutScreenProps) => {
                 )}
               </div>
 
+              {/* $150+ Order Notification */}
+              {total > 150 && (
+                <div className="p-4 bg-amber-50 border border-amber-200 rounded-lg">
+                  <div className="flex items-start gap-3">
+                    <AlertTriangle className="h-5 w-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                    <div className="text-sm">
+                      <p className="font-medium text-amber-800 mb-1">
+                        Order Total Exceeds $150
+                      </p>
+                      <p className="text-amber-700">
+                        Please call the store for orders over $150 before tax
+                        and tip at{" "}
+                        <button
+                          type="button"
+                          onClick={() =>
+                            window.open("tel:908-933-0123", "_self")
+                          }
+                          className="text-brand-pink hover:text-pink-700 font-semibold underline focus:outline-none focus:ring-2 focus:ring-brand-pink focus:ring-offset-2 rounded"
+                        >
+                          (908) 933-0123
+                        </button>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
               {/* Submit Button */}
               <Button
                 type="submit"
-                disabled={loading}
-                className="w-full bg-brand-pink hover:bg-pink-600 text-white py-3 text-lg"
+                disabled={loading || total > 150}
+                className={`w-full py-3 text-lg ${
+                  total > 150
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-brand-pink hover:bg-pink-600 text-white"
+                }`}
               >
                 {loading
                   ? "Processing..."
-                  : `Place Order - $${total.toFixed(2)}`}
+                  : total > 150
+                    ? "Call Store for Large Orders"
+                    : `Place Order - $${total.toFixed(2)}`}
               </Button>
             </form>
           </div>
