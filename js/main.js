@@ -1597,6 +1597,12 @@ function initializeApp() {
     }
   });
 
+  // Load Google Reviews
+  loadGoogleReviews();
+
+  // Improve catering accessibility
+  improveCateringAccessibility();
+
   console.log("Bread N' Brew application initialized successfully!");
 }
 
