@@ -186,44 +186,11 @@ const ProductCard = ({
           <p className="text-gray-600 text-sm mb-4">{description}</p>
         )}
 
-        {/* Allergen Indicator */}
-        {hasAllergens && (
-          <div className="mb-4">
-            <div className="flex items-center space-x-2 p-2 bg-orange-50 border border-orange-200 rounded-md">
-              <AlertTriangle className="h-4 w-4 text-orange-600 flex-shrink-0" />
-              <div className="flex flex-wrap gap-1">
-                <span className="text-xs text-orange-800 font-medium">
-                  Contains:
-                </span>
-                {allergens.slice(0, 2).map((allergen) => (
-                  <Badge
-                    key={allergen}
-                    variant="secondary"
-                    className="text-xs bg-orange-100 text-orange-800"
-                  >
-                    {allergen.charAt(0).toUpperCase() + allergen.slice(1)}
-                  </Badge>
-                ))}
-                {allergens.length > 2 && (
-                  <Badge
-                    variant="secondary"
-                    className="text-xs bg-orange-100 text-orange-800"
-                  >
-                    +{allergens.length - 2} more
-                  </Badge>
-                )}
-              </div>
-            </div>
-          </div>
-        )}
-
         {/* Options */}
-        {(hasToastOptions || hasSliceOptions) && (
+        {hasToastOptions && (
           <div className="mb-4">
             <p className="text-sm text-gray-500 mb-2">
-              {hasToastOptions
-                ? "Toast Options Available"
-                : "Slice Options Available"}
+              Toast Options Available
             </p>
           </div>
         )}
