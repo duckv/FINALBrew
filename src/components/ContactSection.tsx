@@ -42,7 +42,12 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <h4 className="font-semibold text-gray-900 mb-1">Phone</h4>
-                  <p className="text-gray-600">(908) 933-0123</p>
+                  <a
+                    href="tel:(908)933-0123"
+                    className="text-brand-pink hover:text-pink-700 font-medium underline"
+                  >
+                    (908) 933-0123
+                  </a>
                   <p className="text-sm text-gray-500">
                     Call for orders or inquiries
                   </p>
@@ -56,7 +61,12 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <h4 className="font-semibold text-gray-900 mb-1">Email</h4>
-                  <p className="text-gray-600">breadnbrew512@gmail.com</p>
+                  <a
+                    href="mailto:breadnbrew512@gmail.com"
+                    className="text-brand-pink hover:text-pink-700 font-medium underline"
+                  >
+                    breadnbrew512@gmail.com
+                  </a>
                   <p className="text-sm text-gray-500">
                     We'll respond within 24 hours
                   </p>
@@ -70,11 +80,16 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <h4 className="font-semibold text-gray-900 mb-1">Address</h4>
-                  <p className="text-gray-600">
+                  <a
+                    href="https://maps.google.com/?q=512+Springfield+Ave,+Berkeley+Heights,+NJ+07922"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-brand-pink hover:text-pink-700 font-medium underline"
+                  >
                     512 Springfield Ave
                     <br />
                     Berkeley Heights, NJ 07922
-                  </p>
+                  </a>
                 </div>
               </div>
 
