@@ -368,6 +368,220 @@
       </div>
     </footer>
 
+    <!-- ==================== CHECKOUT SYSTEM ==================== -->
+    <div class="checkout-overlay" id="checkoutOverlay">
+      <div class="checkout-container">
+        <div class="checkout-header">
+          <h2>Checkout</h2>
+          <button
+            class="checkout-close"
+            onclick="closeCheckout()"
+            aria-label="Close checkout"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+
+        <div class="checkout-content">
+          <!-- Order Summary -->
+          <div class="checkout-section">
+            <h3>Order Summary</h3>
+            <div class="order-items" id="checkoutItems">
+              <!-- Items will be populated by JavaScript -->
+            </div>
+            <div class="order-totals">
+              <div class="total-line">
+                <span>Subtotal:</span>
+                <span id="checkoutSubtotal">$0.00</span>
+              </div>
+              <div class="total-line">
+                <span>Tax (NJ 6.625%):</span>
+                <span id="checkoutTax">$0.00</span>
+              </div>
+              <div class="total-line">
+                <span>Tip:</span>
+                <span id="checkoutTip">$0.00</span>
+              </div>
+              <div class="total-line total-main">
+                <span>Total:</span>
+                <span id="checkoutTotal">$0.00</span>
+              </div>
+            </div>
+
+            <!-- Tip Selection -->
+            <div class="tip-selection">
+              <h4>Add Tip</h4>
+              <div class="tip-buttons">
+                <button class="tip-btn" data-tip="15">15%</button>
+                <button class="tip-btn" data-tip="18">18%</button>
+                <button class="tip-btn" data-tip="20">20%</button>
+                <button class="tip-btn" data-tip="custom">Custom</button>
+              </div>
+              <input
+                type="number"
+                id="customTip"
+                placeholder="Custom tip amount"
+                style="display: none"
+              />
+            </div>
+
+            <!-- Large Order Warning -->
+            <div
+              class="large-order-warning"
+              id="largeOrderWarning"
+              style="display: none"
+            >
+              <div class="alert alert-warning">
+                <svg
+                  class="alert-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="m21 21-3-6h-12l-3 6"></path>
+                  <path d="m12 9v4"></path>
+                  <path d="m12 17.02.01 0"></path>
+                </svg>
+                <div class="alert-content">
+                  <p>
+                    Please call the store for orders over $150:
+                    <a href="tel:+19089330123">(908) 933-0123</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contact Information -->
+          <div class="checkout-section">
+            <h3>Contact Information</h3>
+            <div class="form-row">
+              <input
+                type="text"
+                id="customerName"
+                placeholder="Full Name"
+                required
+              />
+              <input
+                type="tel"
+                id="customerPhone"
+                placeholder="Phone Number"
+                required
+              />
+            </div>
+            <input
+              type="email"
+              id="customerEmail"
+              placeholder="Email Address"
+              required
+            />
+
+            <!-- Order Type -->
+            <div class="order-type">
+              <h4>Order Type</h4>
+              <div class="radio-group">
+                <label class="radio-option">
+                  <input type="radio" name="orderType" value="pickup" checked />
+                  <span class="radio-custom"></span>
+                  Pickup
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="orderType" value="delivery" />
+                  <span class="radio-custom"></span>
+                  Delivery
+                </label>
+              </div>
+            </div>
+
+            <!-- Pickup/Delivery Details -->
+            <div class="order-details">
+              <div class="pickup-details" id="pickupDetails">
+                <label for="pickupDateTime">Pickup Date & Time:</label>
+                <input type="datetime-local" id="pickupDateTime" />
+              </div>
+
+              <div
+                class="delivery-details"
+                id="deliveryDetails"
+                style="display: none"
+              >
+                <label for="deliveryAddress">Delivery Address:</label>
+                <textarea
+                  id="deliveryAddress"
+                  placeholder="Enter your full address"
+                  rows="3"
+                ></textarea>
+                <label for="deliveryDateTime">Delivery Date & Time:</label>
+                <input type="datetime-local" id="deliveryDateTime" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Payment Method -->
+          <div class="checkout-section">
+            <h3>Payment Method</h3>
+            <div class="payment-options">
+              <label class="radio-option">
+                <input type="radio" name="paymentMethod" value="card" checked />
+                <span class="radio-custom"></span>
+                Credit/Debit Card
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="paymentMethod" value="apple-pay" />
+                <span class="radio-custom"></span>
+                Apple Pay
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="paymentMethod" value="google-pay" />
+                <span class="radio-custom"></span>
+                Google Pay
+              </label>
+            </div>
+
+            <div class="card-details" id="cardDetails">
+              <input type="text" id="cardNumber" placeholder="Card Number" />
+              <div class="form-row">
+                <input type="text" id="expiryDate" placeholder="MM/YY" />
+                <input type="text" id="cvv" placeholder="CVV" />
+              </div>
+              <input type="text" id="cardName" placeholder="Name on Card" />
+            </div>
+          </div>
+
+          <!-- Special Instructions -->
+          <div class="checkout-section">
+            <h3>Special Instructions</h3>
+            <textarea
+              id="specialInstructions"
+              placeholder="Any special requests or notes (e.g., 'no onions', 'call on arrival')"
+              rows="3"
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="checkout-footer">
+          <button class="btn btn-outline" onclick="returnToCart()">
+            Edit Cart
+          </button>
+          <button
+            class="btn btn-primary place-order-btn"
+            onclick="placeOrder()"
+          >
+            Place Order
+          </button>
+        </div>
+      </div>
+    </div>
+
     <!-- ==================== CART SIDEBAR ==================== -->
     <div class="cart-sidebar" id="cartSidebar">
       <div class="cart-overlay" onclick="closeCart()"></div>
