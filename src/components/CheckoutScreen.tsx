@@ -222,7 +222,9 @@ const CheckoutScreen = ({ onBack }: CheckoutScreenProps) => {
                   </Label>
                   <RadioGroup
                     value={contactMethod}
-                    onValueChange={setContactMethod}
+                    onValueChange={(value) =>
+                      setContactMethod(value as typeof contactMethod)
+                    }
                     className="mt-2 space-y-3"
                   >
                     <div className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-gray-50">
