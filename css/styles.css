@@ -2401,7 +2401,7 @@ html {
     display: none;
   }
 
-  .search-container {
+  .menu-controls .search-container {
     max-width: 100%;
   }
 
