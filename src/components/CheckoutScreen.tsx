@@ -481,7 +481,9 @@ const CheckoutScreen = ({ onBack }: CheckoutScreenProps) => {
 
                 <RadioGroup
                   value={paymentMethod}
-                  onValueChange={setPaymentMethod}
+                  onValueChange={(value) =>
+                    setPaymentMethod(value as typeof paymentMethod)
+                  }
                   className="space-y-3"
                 >
                   <div className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-gray-50">
