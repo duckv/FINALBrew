@@ -10,6 +10,9 @@ export interface CartItem {
   category: string;
 }
 
+const MAX_CART_TOTAL = 150; // Maximum cart total before tax and tip
+const MAX_ITEM_QUANTITY = 25; // Maximum quantity per item
+
 interface CartContextType {
   items: CartItem[];
   addItem: (item: Omit<CartItem, "id">) => void;
@@ -46,17 +49,49 @@ export const CartProvider = ({ children }: CartProviderProps) => {
       );
 
       if (existingItem) {
-        // Update quantity if item exists
-        return currentItems.map((item) =>
+        const newQuantity = Math.min(
+          existingItem.quantity + newItem.quantity,
+          MAX_ITEM_QUANTITY,
+        );
+        const updatedItems = currentItems.map((item) =>
           item.id === existingItem.id
-            ? { ...item, quantity: item.quantity + newItem.quantity }
+            ? { ...item, quantity: newQuantity }
             : item,
         );
+
+        // Check cart total limit
+        const newTotal = updatedItems.reduce(
+          (total, item) => total + item.price * item.quantity,
+          0,
+        );
+        if (newTotal > MAX_CART_TOTAL) {
+          throw new Error(`Cart total cannot exceed $${MAX_CART_TOTAL}`);
+        }
+
+        return updatedItems;
       } else {
         // Add new item with generated ID
         const id =
           Date.now().toString() + Math.random().toString(36).substr(2, 9);
-        return [...currentItems, { ...newItem, id }];
+        const newItems = [
+          ...currentItems,
+          {
+            ...newItem,
+            id,
+            quantity: Math.min(newItem.quantity, MAX_ITEM_QUANTITY),
+          },
+        ];
+
+        // Check cart total limit
+        const newTotal = newItems.reduce(
+          (total, item) => total + item.price * item.quantity,
+          0,
+        );
+        if (newTotal > MAX_CART_TOTAL) {
+          throw new Error(`Cart total cannot exceed $${MAX_CART_TOTAL}`);
+        }
+
+        return newItems;
       }
     });
   };
@@ -69,11 +104,23 @@ export const CartProvider = ({ children }: CartProviderProps) => {
     if (quantity <= 0) {
       removeItem(id);
     } else {
-      setItems((currentItems) =>
-        currentItems.map((item) =>
-          item.id === id ? { ...item, quantity } : item,
-        ),
-      );
+      const clampedQuantity = Math.min(quantity, MAX_ITEM_QUANTITY);
+      setItems((currentItems) => {
+        const updatedItems = currentItems.map((item) =>
+          item.id === id ? { ...item, quantity: clampedQuantity } : item,
+        );
+
+        // Check cart total limit
+        const newTotal = updatedItems.reduce(
+          (total, item) => total + item.price * item.quantity,
+          0,
+        );
+        if (newTotal > MAX_CART_TOTAL) {
+          throw new Error(`Cart total cannot exceed $${MAX_CART_TOTAL}`);
+        }
+
+        return updatedItems;
+      });
     }
   };
 
