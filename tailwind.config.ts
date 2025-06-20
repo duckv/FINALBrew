@@ -12,13 +12,24 @@ export default {
   theme: {
     container: {
       center: true,
-      padding: "2rem",
+      padding: "1.5rem",
       screens: {
         "2xl": "1400px",
       },
     },
     extend: {
+      fontFamily: {
+        heading: ["Playfair Display", "serif"],
+        body: ["system-ui", "sans-serif"],
+      },
       colors: {
+        // Brand colors based on Bread N' Brew design
+        brand: {
+          pink: "hsl(var(--brand-pink))",
+          brown: "hsl(var(--brand-brown))",
+          "brown-dark": "hsl(var(--brand-brown-dark))",
+        },
+        // Original shadcn colors maintained for compatibility
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -67,6 +78,12 @@ export default {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      spacing: {
+        "18": "4.5rem",
+        "88": "22rem",
+        "92": "23rem",
+        "96": "24rem",
       },
       keyframes: {
         "accordion-down": {
