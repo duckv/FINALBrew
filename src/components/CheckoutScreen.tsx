@@ -43,6 +43,8 @@ const CheckoutScreen = ({ onBack }: CheckoutScreenProps) => {
   const [paymentMethod, setPaymentMethod] = useState<"card" | "digital">(
     "card",
   );
+  const [pickupDate, setPickupDate] = useState<string>("today");
+  const [pickupTime, setPickupTime] = useState<string>("now");
 
   const subtotal = getTotalPrice();
   const tax = subtotal * 0.0875; // NJ sales tax (8.75%)
@@ -347,9 +349,13 @@ const CheckoutScreen = ({ onBack }: CheckoutScreenProps) => {
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <Label htmlFor="pickupDate">Date</Label>
-                      <Select required>
+                      <Select
+                        value={pickupDate}
+                        onValueChange={setPickupDate}
+                        required
+                      >
                         <SelectTrigger className="mt-1">
-                          <SelectValue placeholder="Select date" />
+                          <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
                           <SelectItem value="today">Today</SelectItem>
@@ -360,9 +366,13 @@ const CheckoutScreen = ({ onBack }: CheckoutScreenProps) => {
 
                     <div>
                       <Label htmlFor="pickupTime">Time</Label>
-                      <Select required>
+                      <Select
+                        value={pickupTime}
+                        onValueChange={setPickupTime}
+                        required
+                      >
                         <SelectTrigger className="mt-1">
-                          <SelectValue placeholder="Select time" />
+                          <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
                           {generateTimeSlots(new Date()).map((slot) => (
