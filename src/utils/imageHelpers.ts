@@ -17,21 +17,30 @@ const IMAGE_BASE_PATH = "/src/assets/images" as const;
 
 /**
  * Get the full path to an image based on category and filename
+ * Supports both flat structure and subcategory structure
  *
  * @param category - The image category (products, gallery, logos, backgrounds)
  * @param filename - The image filename with extension
+ * @param subcategory - Optional subcategory (e.g., "coffee", "pastries")
  * @returns The full path to the image
  *
  * @example
  * ```tsx
  * const imagePath = getImagePath("products", "chocolate-croissant.jpg");
  * // Returns: "/src/assets/images/products/chocolate-croissant.jpg"
+ *
+ * const imagePath = getImagePath("products", "latte-art.jpg", "coffee");
+ * // Returns: "/src/assets/images/products/coffee/latte-art.jpg"
  * ```
  */
 export function getImagePath(
   category: ImageCategory,
   filename: string,
+  subcategory?: string,
 ): string {
+  if (subcategory) {
+    return `${IMAGE_BASE_PATH}/${category}/${subcategory}/${filename}`;
+  }
   return `${IMAGE_BASE_PATH}/${category}/${filename}`;
 }
 
