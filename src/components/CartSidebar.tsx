@@ -11,9 +11,10 @@ import { useCart } from "@/contexts/CartContext";
 interface CartSidebarProps {
   isOpen: boolean;
   onClose: () => void;
+  onCheckout?: () => void;
 }
 
-const CartSidebar = ({ isOpen, onClose }: CartSidebarProps) => {
+const CartSidebar = ({ isOpen, onClose, onCheckout }: CartSidebarProps) => {
   const {
     items: cartItems,
     updateQuantity,
@@ -134,7 +135,11 @@ const CartSidebar = ({ isOpen, onClose }: CartSidebarProps) => {
                 </div>
 
                 <Button
-                  className="w-full bg-brand-brown hover:bg-brand-brown-dark text-white py-3"
+                  onClick={() => {
+                    onCheckout?.();
+                    onClose();
+                  }}
+                  className="w-full bg-brand-pink hover:bg-pink-600 text-white py-3"
                   size="lg"
                 >
                   Proceed to Checkout
