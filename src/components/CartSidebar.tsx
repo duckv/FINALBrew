@@ -131,6 +131,9 @@ const CartSidebar = ({ isOpen, onClose, onCheckout }: CartSidebarProps) => {
 
               {/* Cart Summary */}
               <div className="flex-shrink-0 border-t border-gray-200 pt-4 pb-4 space-y-3">
+                {/* Order threshold alert */}
+                <OrderThresholdAlert />
+
                 <div className="flex justify-between items-center text-lg font-semibold">
                   <span>Total</span>
                   <span>${getTotalPrice().toFixed(2)}</span>
