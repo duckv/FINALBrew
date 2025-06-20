@@ -30,6 +30,26 @@
     scrollbar-width: thin;
     scrollbar-color: #f59e0b #f1f1f1;
   }
+
+  /* Mobile-friendly tap targets */
+  @media (max-width: 768px) {
+    button,
+    a {
+      min-height: 44px;
+      min-width: 44px;
+    }
+  }
+
+  /* Smooth scrolling for internal links */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Better focus visibility */
+  *:focus-visible {
+    outline: 2px solid hsl(var(--brand-pink));
+    outline-offset: 2px;
+  }
   /**
    * Tailwind CSS theme
    * tailwind.config.ts expects the following color variables to be expressed as HSL values.
